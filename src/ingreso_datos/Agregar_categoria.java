@@ -5,17 +5,71 @@
  */
 package ingreso_datos;
 
+import entidades.CatProducto;
+import entidades.CatProductoJpaController;
+import entidades.ClienteJpaController;
+import entidades.entityMain;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author marvin1
  */
 public class Agregar_categoria extends javax.swing.JFrame {
-
+    CatProductoJpaController control_categoria = new CatProductoJpaController(entityMain.getInstance());
     /**
      * Creates new form Agregar_categoria
      */
     public Agregar_categoria() {
         initComponents();
+        CrearModelo2();
+        LlenarTabla();
+    }
+     public static DefaultTableModel modelo2;
+    private void CrearModelo2(){
+        try {
+            modelo2 = (new DefaultTableModel(
+                null, new String [] {
+                "id_Categoria","Nombres"}){
+                Class[] types = new Class [] {
+                java.lang.String.class,
+                java.lang.String.class,
+                };
+                boolean[] canEdit = new boolean [] {
+                false,false
+                };
+                @Override
+                public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+                }
+                @Override
+                public boolean isCellEditable(int rowIndex, int colIndex){
+                return canEdit [colIndex];
+                }
+            });
+            this.jTable1.setModel(modelo2);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e.toString()+"error2");
+        }
+    }
+    
+    private void LlenarTabla()
+    {
+        try{
+            Object a[]=null;
+            List<CatProducto>ListaCat;
+            ListaCat= control_categoria.findCatProductoEntities();
+            for (int i = 0; i < ListaCat.size(); i++) {
+                modelo2.addRow(a);
+                modelo2.setValueAt(ListaCat.get(i).getIdCatProducto(),i, 0);
+                modelo2.setValueAt(ListaCat.get(i).getNombreCatProd(),i, 1);               
+            }
+            
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this,e.getMessage());
+        }
     }
 
     /**
@@ -30,8 +84,8 @@ public class Agregar_categoria extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtNomCat = new javax.swing.JTextField();
+        btnAggCat = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -40,20 +94,25 @@ public class Agregar_categoria extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setText("Nueva categoria");
 
-        jButton1.setText("Guardar categoria");
+        btnAggCat.setText("Guardar categoria");
+        btnAggCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAggCatActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Salir");
 
@@ -69,9 +128,9 @@ public class Agregar_categoria extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNomCat, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnAggCat)
                         .addGap(35, 35, 35)
                         .addComponent(jButton2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
@@ -100,16 +159,36 @@ public class Agregar_categoria extends javax.swing.JFrame {
                 .addGap(150, 150, 150)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNomCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnAggCat)
                     .addComponent(jButton2))
                 .addGap(77, 77, 77))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAggCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAggCatActionPerformed
+        String nomCat = this.txtNomCat.getText();
+        
+        CatProductoJpaController t= new CatProductoJpaController(entityMain.getInstance());
+        CatProducto cat= new CatProducto();
+        cat.setNombreCatProd(nomCat);
+        
+        try
+        {
+            t.create(cat);
+            JOptionPane.showMessageDialog(null,"Datos REgistrados");
+            LlenarTabla();
+            
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,"Error"+e.toString());
+        }
+    }//GEN-LAST:event_btnAggCatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -147,13 +226,13 @@ public class Agregar_categoria extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAggCat;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtNomCat;
     // End of variables declaration//GEN-END:variables
 }
