@@ -37,17 +37,17 @@ public class Agregar_categoria extends javax.swing.JFrame {
                 java.lang.String.class,
                 java.lang.String.class,
                 };
-                boolean[] canEdit = new boolean [] {
-                false,false
-                };
+                //boolean[] canEdit = new boolean [] {
+                //false,false
+                //};
                 @Override
                 public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
                 }
-                @Override
-                public boolean isCellEditable(int rowIndex, int colIndex){
-                return canEdit [colIndex];
-                }
+                //@Override
+                //public boolean isCellEditable(int rowIndex, int colIndex){
+                //return canEdit [colIndex];
+                //}
             });
             this.jTable1.setModel(modelo2);
         } catch (Exception e) {
@@ -58,6 +58,7 @@ public class Agregar_categoria extends javax.swing.JFrame {
     private void LlenarTabla()
     {
         try{
+            
             Object a[]=null;
             List<CatProducto>ListaCat;
             ListaCat= control_categoria.findCatProductoEntities();
@@ -66,6 +67,7 @@ public class Agregar_categoria extends javax.swing.JFrame {
                 modelo2.setValueAt(ListaCat.get(i).getIdCatProducto(),i, 0);
                 modelo2.setValueAt(ListaCat.get(i).getNombreCatProd(),i, 1);               
             }
+            ListaCat.clear();
             
         }catch (Exception e){
             JOptionPane.showMessageDialog(this,e.getMessage());
