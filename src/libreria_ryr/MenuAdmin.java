@@ -14,6 +14,7 @@ import ingreso_datos.frmListar_cat;
 import ingreso_datos.frmListar_cli;
 import ingreso_datos.frmListar_emp;
 import ingreso_datos.frmListar_prov;
+import ventas.Nventa;
 
 /**
  *
@@ -72,6 +73,11 @@ public class MenuAdmin extends javax.swing.JFrame {
         jMenu1.setText("Venta");
 
         jMenuItem2.setText("Generer Venta");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         Menu.add(jMenu1);
@@ -240,6 +246,11 @@ public class MenuAdmin extends javax.swing.JFrame {
         frmListar_cli lisClie=new frmListar_cli();
         lisClie.setVisible(true);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+       Nventa Gventa=new Nventa();
+       Gventa.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -145,6 +145,8 @@ public class Nventa extends javax.swing.JFrame {
         String date=fechaA;
         venta.procedureVenta(date,total,idemp);
         JOptionPane.showMessageDialog(null,"Venta Generada");
+        Ventas_P Nventa=new Ventas_P();
+        Nventa.setVisible(true);
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
