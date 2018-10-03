@@ -18,61 +18,16 @@ import javax.swing.table.DefaultTableModel;
  * @author marvin1
  */
 public class Agregar_categoria extends javax.swing.JFrame {
-    CatProductoJpaController control_categoria = new CatProductoJpaController(entityMain.getInstance());
+    
     /**
      * Creates new form Agregar_categoria
      */
     public Agregar_categoria() {
         initComponents();
-        CrearModelo2();
-        LlenarTabla();
-    }
-     public static DefaultTableModel modelo2;
-    private void CrearModelo2(){
-        try {
-            modelo2 = (new DefaultTableModel(
-                null, new String [] {
-                "id_Categoria","Nombres"}){
-                Class[] types = new Class [] {
-                java.lang.String.class,
-                java.lang.String.class,
-                };
-                //boolean[] canEdit = new boolean [] {
-                //false,false
-                //};
-                @Override
-                public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-                }
-                //@Override
-                //public boolean isCellEditable(int rowIndex, int colIndex){
-                //return canEdit [colIndex];
-                //}
-            });
-            this.jTable1.setModel(modelo2);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,e.toString()+"error2");
-        }
+        this.setLocationRelativeTo(null);
+        
     }
     
-    private void LlenarTabla()
-    {
-        try{
-            
-            Object a[]=null;
-            List<CatProducto>ListaCat;
-            ListaCat= control_categoria.findCatProductoEntities();
-            for (int i = 0; i < ListaCat.size(); i++) {
-                modelo2.addRow(a);
-                modelo2.setValueAt(ListaCat.get(i).getIdCatProducto(),i, 0);
-                modelo2.setValueAt(ListaCat.get(i).getNombreCatProd(),i, 1);               
-            }
-            ListaCat.clear();
-            
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(this,e.getMessage());
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,90 +38,53 @@ public class Agregar_categoria extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         txtNomCat = new javax.swing.JTextField();
         btnAggCat = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Nueva categoria");
 
-        btnAggCat.setText("Guardar categoria");
+        btnAggCat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/if_save_173091.png"))); // NOI18N
         btnAggCat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAggCatActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Salir");
-
         jLabel2.setText("Agregar nueva categoria");
-
-        jLabel3.setText("Lista de categorias");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(txtNomCat, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAggCat)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(337, 337, 337)
+                .addGap(87, 87, 87)
                 .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(147, 147, 147))
+                .addContainerGap(26, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnAggCat, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1)
+                        .addComponent(txtNomCat, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(150, 150, 150)
+                .addGap(9, 9, 9)
+                .addComponent(jLabel2)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtNomCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAggCat)
-                    .addComponent(jButton2))
-                .addGap(77, 77, 77))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAggCat, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -183,7 +101,6 @@ public class Agregar_categoria extends javax.swing.JFrame {
         {
             t.create(cat);
             JOptionPane.showMessageDialog(null,"Datos REgistrados");
-            LlenarTabla();
             
         }
         catch(Exception e)
@@ -229,12 +146,8 @@ public class Agregar_categoria extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAggCat;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtNomCat;
     // End of variables declaration//GEN-END:variables
 }
