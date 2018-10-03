@@ -27,7 +27,7 @@ public class Nventa extends javax.swing.JFrame {
     public Nventa() {
         initComponents();
         Llenar_Empleados();
-        Empleado emp=new Empleado();
+        
         
     }
     DefaultComboBoxModel dc = new DefaultComboBoxModel();
