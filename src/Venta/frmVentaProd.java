@@ -5,18 +5,37 @@
  */
 package Venta;
 
+import entidades.Empleado;
+import entidades.EmpleadoJpaController;
+import entidades.entityMain;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+
+import java.sql.*;
+
 /**
  *
  * @author migue
  */
 public class frmVentaProd extends javax.swing.JFrame {
-
+EmpleadoJpaController control_empleado = new EmpleadoJpaController(entityMain.getInstance());
     /**
      * Creates new form frmVentaProd
      */
     public frmVentaProd() {
         initComponents();
+        Llenar_Empleados();
     }
+    DefaultComboBoxModel dc = new DefaultComboBoxModel();
+    private void Llenar_Empleados(){
+            cmbEmpleado.setModel(dc);
+            List<Empleado>ListaEmpleado;
+            ListaEmpleado= control_empleado.findEmpleadoEntities();
+        for(int i=0; i<ListaEmpleado.size(); i++){
+            dc.addElement(ListaEmpleado.get(i).getIdEmpleado() +"|" + ListaEmpleado.get(i).getNombreEmp()+" "+ ListaEmpleado.get(i).getApellidoEmp());
+        }       
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,21 +46,77 @@ public class frmVentaProd extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGenerarVenta = new javax.swing.JButton();
+        cmbEmpleado = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtIDVenta = new javax.swing.JTextField();
+        txtFecha = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btnGenerarVenta.setText("Generar Venta");
+        btnGenerarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarVentaActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("ID Venta:");
+
+        jLabel2.setText("Fecha:");
+
+        jLabel3.setText("Empleado:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnGenerarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtFecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                                .addComponent(txtIDVenta, javax.swing.GroupLayout.Alignment.LEADING)))))
+                .addContainerGap(723, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtIDVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(cmbEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addComponent(btnGenerarVenta)
+                .addContainerGap(340, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGenerarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarVentaActionPerformed
+        // TODO add your handling code here:
+        Llenar_Empleados();
+    }//GEN-LAST:event_btnGenerarVentaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +154,12 @@ public class frmVentaProd extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGenerarVenta;
+    private javax.swing.JComboBox<String> cmbEmpleado;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField txtFecha;
+    private javax.swing.JTextField txtIDVenta;
     // End of variables declaration//GEN-END:variables
 }
