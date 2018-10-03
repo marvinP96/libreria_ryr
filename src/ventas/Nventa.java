@@ -57,7 +57,7 @@ public class Nventa extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         fecha = new com.toedter.calendar.JDateChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Nueva Venta");
 
