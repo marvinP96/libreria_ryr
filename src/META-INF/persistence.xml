@@ -7,6 +7,7 @@
     <class>entidades.Proveedor</class>
     <class>entidades.CatProducto</class>
     <class>entidades.Empleado</class>
+    <class>entidades.Producto</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
       <property name="javax.persistence.jdbc.user" value="RYR"/>

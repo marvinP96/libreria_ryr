@@ -7,12 +7,14 @@ package entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -24,6 +26,9 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Proveedor.findAll", query = "SELECT p FROM Proveedor p")})
 public class Proveedor implements Serializable {
+
+    @OneToMany(mappedBy = "idProveedor")
+    private List<Producto> productoList;
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -100,6 +105,14 @@ public class Proveedor implements Serializable {
     @Override
     public String toString() {
         return "entidades.Proveedor[ idProveedor=" + idProveedor + " ]";
+    }
+
+    public List<Producto> getProductoList() {
+        return productoList;
+    }
+
+    public void setProductoList(List<Producto> productoList) {
+        this.productoList = productoList;
     }
     
 }
