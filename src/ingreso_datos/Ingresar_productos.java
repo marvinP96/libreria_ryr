@@ -257,7 +257,7 @@ public class Ingresar_productos extends javax.swing.JFrame {
         String date=fechaA;
         venta.procedureAggProd(this.txtNomProd.getText(),date,Double.parseDouble(this.txtPrecio.getText()),
                 Integer.parseInt(this.txtExistencia.getText()),idProv,idCat);
-        JOptionPane.showMessageDialog(null,"Venta Generada");
+        JOptionPane.showMessageDialog(null,"Producto Agregado con Exito");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
