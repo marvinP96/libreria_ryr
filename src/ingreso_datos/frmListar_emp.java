@@ -35,25 +35,6 @@ EmpleadoJpaController control_empleado = new EmpleadoJpaController(entityMain.ge
                 "id_empleado","Nombres",
                 "apellido","direccion","telefono"
                 }){
-                Class[] types = new Class [] {
-                java.lang.String.class,
-                java.lang.String.class,
-                java.lang.String.class,
-                java.lang.String.class,
-                java.lang.String.class,
-                
-                };
-                boolean[] canEdit = new boolean [] {
-                false,false,false,false,false
-                };
-                @Override
-                public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-                }
-                @Override
-                public boolean isCellEditable(int rowIndex, int colIndex){
-                return canEdit [colIndex];
-                }
             });
             this.jTable1.setModel(modelo2);
         } catch (Exception e) {

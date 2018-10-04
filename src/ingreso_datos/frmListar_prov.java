@@ -35,25 +35,6 @@ public class frmListar_prov extends javax.swing.JFrame {
                 null, new String [] {
                 "id_proveedor","Nombres","direccion","NIT"
                 ,"telefono"}){
-                Class[] types = new Class [] {
-                java.lang.String.class,
-                java.lang.String.class,
-                java.lang.String.class,
-                java.lang.String.class,
-                java.lang.String.class
-                
-                };
-                boolean[] canEdit = new boolean [] {
-                false,false,false,false,false
-                };
-                @Override
-                public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-                }
-                @Override
-                public boolean isCellEditable(int rowIndex, int colIndex){
-                return canEdit [colIndex];
-                }
             });
             this.jTable1.setModel(modelo2);
         } catch (Exception e) {
@@ -115,16 +96,16 @@ public class frmListar_prov extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 451, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
+                    .addGap(149, 149, 149)
+                    .addComponent(jLabel3)
+                    .addContainerGap(201, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
                     .addGap(12, 12, 12)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addGap(137, 137, 137)))
-                    .addContainerGap(13, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
