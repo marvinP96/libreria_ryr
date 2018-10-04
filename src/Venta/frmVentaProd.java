@@ -12,19 +12,28 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 
 import java.sql.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author migue
+ * @author Santillano
  */
 public class frmVentaProd extends javax.swing.JFrame {
 EmpleadoJpaController control_empleado = new EmpleadoJpaController(entityMain.getInstance());
     /**
      * Creates new form frmVentaProd
+     * 
      */
+     //Declaramos el modelo
+    DefaultTableModel modeloEmp;
+    
     public frmVentaProd() {
         initComponents();
         Llenar_Empleados();
+        //Le asignamos el modelo al jTable
+        modeloEmp=(DefaultTableModel) this.jtEmpleado.getModel();
+        
+        LlenarTablaEmp();
     }
     DefaultComboBoxModel dc = new DefaultComboBoxModel();
     private void Llenar_Empleados(){
@@ -34,6 +43,19 @@ EmpleadoJpaController control_empleado = new EmpleadoJpaController(entityMain.ge
         for(int i=0; i<ListaEmpleado.size(); i++){
             dc.addElement(ListaEmpleado.get(i).getIdEmpleado() +"|" + ListaEmpleado.get(i).getNombreEmp()+" "+ ListaEmpleado.get(i).getApellidoEmp());
         }       
+    }
+    
+    ///METODO PARA LLENAR TABLA
+    public void LlenarTablaEmp(){
+            List<Empleado> ListaEmpleado;
+            ListaEmpleado= control_empleado.findEmpleadoEntities();
+        
+            for(int i=0; i<ListaEmpleado.size(); i++){
+            String[] registroEmp = { ListaEmpleado.get(i).getIdEmpleado().toString(), ListaEmpleado.get(i).getNombreEmp(),ListaEmpleado.get(i).getApellidoEmp(),
+                                    ListaEmpleado.get(i).getTelefonoEmp()};
+            modeloEmp.addRow(registroEmp);
+        }
+    
     }
     
 
@@ -53,6 +75,8 @@ EmpleadoJpaController control_empleado = new EmpleadoJpaController(entityMain.ge
         jLabel3 = new javax.swing.JLabel();
         txtIDVenta = new javax.swing.JTextField();
         txtFecha = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtEmpleado = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +92,16 @@ EmpleadoJpaController control_empleado = new EmpleadoJpaController(entityMain.ge
         jLabel2.setText("Fecha:");
 
         jLabel3.setText("Empleado:");
+
+        jtEmpleado.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre de Empleado", "Apellido de Empleado", "Dirección", "Telefono"
+            }
+        ));
+        jScrollPane1.setViewportView(jtEmpleado);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,7 +122,9 @@ EmpleadoJpaController control_empleado = new EmpleadoJpaController(entityMain.ge
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(txtFecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
                                 .addComponent(txtIDVenta, javax.swing.GroupLayout.Alignment.LEADING)))))
-                .addContainerGap(723, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,17 +133,23 @@ EmpleadoJpaController control_empleado = new EmpleadoJpaController(entityMain.ge
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtIDVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(cmbEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addComponent(btnGenerarVenta)
-                .addContainerGap(340, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(cmbEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addComponent(btnGenerarVenta)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(85, 85, 85))))
         );
 
         pack();
@@ -159,6 +201,8 @@ EmpleadoJpaController control_empleado = new EmpleadoJpaController(entityMain.ge
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jtEmpleado;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtIDVenta;
     // End of variables declaration//GEN-END:variables
