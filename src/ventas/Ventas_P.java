@@ -5,6 +5,7 @@
  */
 package ventas;
 
+import conexion_db.ConexionDB;
 import entidades.Producto;
 import entidades.ProductoJpaController;
 import entidades.Venta;
@@ -149,6 +150,11 @@ public class Ventas_P extends javax.swing.JFrame {
         jButton4.setText("Agregar");
         jButton4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton4.setBorderPainted(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/if_system-search_118797.png"))); // NOI18N
         jButton2.setText("Buscar");
@@ -217,13 +223,13 @@ public class Ventas_P extends javax.swing.JFrame {
                     .addComponent(cmbVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtCodProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCodProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -268,6 +274,29 @@ public class Ventas_P extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Producto no Existe");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
+        ConexionDB Aventa=new ConexionDB();
+        int cant=Integer.parseInt(this.jSpinner1.getValue().toString());
+        int idV=cmbVenta.getSelectedIndex();
+        List<Venta>ListaVen;
+            ListaVen= control_venta.findVentaEntities();
+        int idVen=Integer.parseInt(ListaVen.get(idV).getIdVenta().toString());
+        
+        int idprod=Integer.parseInt(this.txtCodProd.getText());
+        double prePro=0;
+        List<Producto>ListaProd;
+        ListaProd= control_producto.findProductoEntities();
+        for(int i=0; i<ListaProd.size(); i++){
+            int id=Integer.parseInt(ListaProd.get(i).getIdProducto().toString());
+            if(id==idprod){
+               prePro =Double.parseDouble(ListaProd.get(i).getPrecioProd().toString());
+            }
+        }
+        Aventa.procedureAggProdaVenta(idVen,idprod,prePro,cant);
+        JOptionPane.showMessageDialog(null,"Producto Agregado a la Venta");
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
