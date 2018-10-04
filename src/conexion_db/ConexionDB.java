@@ -78,5 +78,30 @@ public class ConexionDB {
        }
        return resultado;
    }
+   
+   public String procedureAggProdaVenta(String nombre,String fecha,Double precio,Integer existencia,Integer idProv,Integer idCat)
+   {
+       
+       String resultado=null;
+       try {            
+           
+            CallableStatement proc = conn.prepareCall("{CALL aggprodpro(?,?,?,?,?,?,?)}");
+            proc.setString("NOMBRE_PROD",nombre );
+            proc.setString("FECHA_INGRESO_PROD",fecha );
+            proc.setDouble("PRECIO_PROD",precio );
+            proc.setInt("EXISTENCIA_PROD",existencia );
+            proc.setInt("ID_PROVEEDOR",idProv );
+            proc.setInt("ID_CAT_PRODUCTO",idCat );
+            proc.registerOutParameter("msj", java.sql.Types.VARCHAR);
+            proc.executeQuery();            
+            
+            resultado = proc.getString("msj");
+        } 
+       catch (Exception e) {                  
+            JOptionPane.showMessageDialog(null, e);
+       }
+       return resultado;
+   }
+
 
 }
