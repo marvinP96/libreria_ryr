@@ -27,6 +27,7 @@ public class Nventa extends javax.swing.JFrame {
     public Nventa() {
         initComponents();
         Llenar_Empleados();
+        this.setLocationRelativeTo(null);
         
         
     }

@@ -5,18 +5,26 @@
  */
 package ventas;
 
+import entidades.ProductoJpaController;
+import entidades.entityMain;
+
 /**
  *
  * @author marvin
  */
 public class Ventas_P extends javax.swing.JFrame {
-    //ClienteJpaController control_cliente = new ClienteJpaController(entityMain.getInstance());
+    ProductoJpaController control_producto = new ProductoJpaController(entityMain.getInstance());
     /**
      * Creates new form Ventas_P
      */
     public Ventas_P() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        //CrearModelo2();
+        //LlenarTabla();
     }
+    
+     
 
     /**
      * This method is called from within the constructor to initialize the form.
