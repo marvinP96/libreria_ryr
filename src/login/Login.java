@@ -25,6 +25,8 @@ public class Login extends javax.swing.JFrame {
     String nombreUsuario;
     String contrasenaUsuario="";
     char [] contrasena;
+    Boolean usuario;
+    Boolean contra;
     
     public Login() {
         initComponents();
@@ -33,6 +35,8 @@ public class Login extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         rsscalelabel.RSScaleLabel.setScaleLabel(logo, "src/login/logoLi.jpg");
+        usuario=false;
+        contra=false;
         
         
     }
@@ -40,7 +44,7 @@ public class Login extends javax.swing.JFrame {
     
     private void ValidarLogin(){
             contrasenaUsuario="";        
-            cmbLogin.setModel(dc);
+            //cmbLogin.setModel(dc);
             List<entidades.Login>ListaLogin;
             ListaLogin= control_login.findLoginEntities();
             nombreUsuario=txtNombreUs.getText().toString();
@@ -49,22 +53,45 @@ public class Login extends javax.swing.JFrame {
                 contrasenaUsuario+= contrasena[i];
             }
             
+            
+            
             //JOptionPane.showMessageDialog(null,nombreUsuario +"|"+ contrasenaUsuario);
             
         for(int i=0; i<ListaLogin.size(); i++){
             //dc.addElement(ListaLogin.get(i).getIdUser()+"|"+ListaLogin.get(i).getNomUser());
             //txtNombreUs.setText(ListaLogin.get(i).getIdUser().toString());
             if(ListaLogin.get(i).getNomUser().toString().equals(nombreUsuario)){
+                 usuario=true;
                 if(ListaLogin.get(i).getContraseñaUser().toString().equals(contrasenaUsuario)){
                     JOptionPane.showMessageDialog(null,"Bienvenido");
+                    usuario=true;
+                    contra=true;  
+                    //AQUI IRIA LA ACCION PARA LLAMAR AL MENU
+                    
+                    
+                    
+                     break;
                 }else{
-                    JOptionPane.showMessageDialog(null,"Contraseña de usuario no valida");
+                    //JOptionPane.showMessageDialog(null,"Contraseña de usuario no valida");
+                    contra=false;
                 }
-                break;
+               
             }else{
-                    JOptionPane.showMessageDialog(null,"Nombre de usuario no valido");
+                    //JOptionPane.showMessageDialog(null,"Nombre de usuario no valido");
+                    usuario=false;
             }           
-        }       
+        }
+        
+        if(usuario==false){
+            JOptionPane.showMessageDialog(null,"Nombre de usuario incorrecto o no valido con su contrasena de Usuario");
+            
+        }else{
+            if(contra==false){
+                JOptionPane.showMessageDialog(null,"Contraseña de usuario incorrecta o no valida con su nombre de Usuario");
+            }
+        }
+        
+        
     }
 
     /**
@@ -88,7 +115,6 @@ public class Login extends javax.swing.JFrame {
         logo = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        cmbLogin = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -181,24 +207,21 @@ public class Login extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel4)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(226, 226, 226))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtContrasenaUs, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(226, 226, 226))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtContrasenaUs, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addGap(191, 191, 191))
-                                .addComponent(txtNombreUs, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(71, 71, 71)
-                        .addComponent(cmbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                                .addComponent(jLabel2)
+                                .addGap(191, 191, 191))
+                            .addComponent(txtNombreUs, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,13 +236,8 @@ public class Login extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtContrasenaUs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(cmbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)))
+                .addComponent(txtContrasenaUs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEntrar)
                     .addComponent(btnSalir))
@@ -285,7 +303,6 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEntrar;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JComboBox<String> cmbLogin;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
