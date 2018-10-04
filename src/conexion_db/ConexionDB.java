@@ -79,19 +79,17 @@ public class ConexionDB {
        return resultado;
    }
    
-   public String procedureAggProdaVenta(String nombre,String fecha,Double precio,Integer existencia,Integer idProv,Integer idCat)
+   public String procedureAggProdaVenta(Integer idVenta,Integer idProd,Double PrecioU,Integer Cantidad)
    {
        
        String resultado=null;
        try {            
            
-            CallableStatement proc = conn.prepareCall("{CALL aggprodpro(?,?,?,?,?,?,?)}");
-            proc.setString("NOMBRE_PROD",nombre );
-            proc.setString("FECHA_INGRESO_PROD",fecha );
-            proc.setDouble("PRECIO_PROD",precio );
-            proc.setInt("EXISTENCIA_PROD",existencia );
-            proc.setInt("ID_PROVEEDOR",idProv );
-            proc.setInt("ID_CAT_PRODUCTO",idCat );
+            CallableStatement proc = conn.prepareCall("{CALL Gventa(?,?,?,?,?)}");
+            proc.setInt("ID_VENTA",idVenta );
+            proc.setInt("ID_PRODUCTO",idProd );
+            proc.setDouble("PRECIO_UNI_VENT",PrecioU );
+            proc.setInt("CANTIDAD_VENTA",Cantidad );
             proc.registerOutParameter("msj", java.sql.Types.VARCHAR);
             proc.executeQuery();            
             
