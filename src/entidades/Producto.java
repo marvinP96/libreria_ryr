@@ -43,7 +43,7 @@ public class Producto implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaIngresoProd;
     @Column(name = "PRECIO_PROD")
-    private BigInteger precioProd;
+    private BigDecimal precioProd;
     @Column(name = "EXISTENCIA_PROD")
     private BigInteger existenciaProd;
     @JoinColumn(name = "ID_CAT_PRODUCTO", referencedColumnName = "ID_CAT_PRODUCTO")
@@ -84,11 +84,11 @@ public class Producto implements Serializable {
         this.fechaIngresoProd = fechaIngresoProd;
     }
 
-    public BigInteger getPrecioProd() {
+    public BigDecimal getPrecioProd() {
         return precioProd;
     }
 
-    public void setPrecioProd(BigInteger precioProd) {
+    public void setPrecioProd(BigDecimal precioProd) {
         this.precioProd = precioProd;
     }
 
