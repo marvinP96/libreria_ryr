@@ -10,6 +10,7 @@ import entidades.EmpleadoJpaController;
 import entidades.Producto;
 import entidades.ProductoJpaController;
 import entidades.entityMain;
+import java.awt.Font;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 
@@ -37,7 +38,7 @@ public class frmVentaProd extends javax.swing.JFrame {
         modeloProd=(DefaultTableModel) this.tblProductos.getModel();
        txtIDVentaActual.setEditable(false); 
        //txtIDVentaActual.setEnabled(false);
-        
+        tblProductos.getTableHeader().setFont(new Font("Dubai", 1, 16)); 
        
        LlenarPrimTablaProd();
        encontrado=false;
@@ -135,6 +136,7 @@ public class frmVentaProd extends javax.swing.JFrame {
 
         txtIDVentaActual.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
+        tblProductos.setFont(new java.awt.Font("Dubai", 0, 16)); // NOI18N
         tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -181,7 +183,6 @@ public class frmVentaProd extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 781, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
@@ -194,8 +195,9 @@ public class frmVentaProd extends javax.swing.JFrame {
                                 .addComponent(btnBuscarProd))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(64, 64, 64)
-                                .addComponent(jLabel3)))))
-                .addContainerGap(353, Short.MAX_VALUE))
+                                .addComponent(jLabel3))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 906, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
