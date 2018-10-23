@@ -140,11 +140,14 @@ public class Nventa extends javax.swing.JFrame {
         int total=0;
         
         String dia=Integer.toString(fecha.getCalendar().get(Calendar.DAY_OF_MONTH));
-        String mes= Integer.toString(fecha.getCalendar().get(Calendar.MONTH));
+        String mes= Integer.toString(fecha.getCalendar().get(Calendar.MONTH)+1);
         String year= Integer.toString(fecha.getCalendar().get(Calendar.YEAR));
-        String fechaA=(dia+"-"+mes+"-"+year);
-        String date=fechaA;
-        venta.procedureVenta(date,total,idemp);
+        String fechaA=(dia+"/"+mes+"/"+year);
+        String out=venta.procedureVenta(fechaA,total,idemp);
+        
+       // venta.procedureVenta(fechaA,total,idemp);
+        JOptionPane.showMessageDialog(null,out);
+        JOptionPane.showMessageDialog(null,fechaA);
         JOptionPane.showMessageDialog(null,"Venta Generada");
         Ventas_P Nventa=new Ventas_P();
         Nventa.setVisible(true);
