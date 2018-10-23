@@ -7,11 +7,14 @@ package Venta;
 
 import entidades.Empleado;
 import entidades.EmpleadoJpaController;
+import entidades.Producto;
+import entidades.ProductoJpaController;
 import entidades.entityMain;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 
 import java.sql.*;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,44 +22,88 @@ import javax.swing.table.DefaultTableModel;
  * @author Santillano
  */
 public class frmVentaProd extends javax.swing.JFrame {
-EmpleadoJpaController control_empleado = new EmpleadoJpaController(entityMain.getInstance());
+    ProductoJpaController control_Producto = new ProductoJpaController(entityMain.getInstance());
     /**
      * Creates new form frmVentaProd
      * 
      */
      //Declaramos el modelo
-    DefaultTableModel modeloEmp;
     
+    DefaultTableModel modeloProd;
+    List<Producto> ListaProducto;
+    Boolean encontrado;
     public frmVentaProd() {
         initComponents();
-        Llenar_Empleados();
-        //Le asignamos el modelo al jTable
-        modeloEmp=(DefaultTableModel) this.jtEmpleado.getModel();
+        modeloProd=(DefaultTableModel) this.tblProductos.getModel();
+       txtIDVentaActual.setEditable(false); 
+       //txtIDVentaActual.setEnabled(false);
         
-        LlenarTablaEmp();
-    }
-    DefaultComboBoxModel dc = new DefaultComboBoxModel();
-    private void Llenar_Empleados(){
-            cmbEmpleado.setModel(dc);
-            List<Empleado>ListaEmpleado;
-            ListaEmpleado= control_empleado.findEmpleadoEntities();
-        for(int i=0; i<ListaEmpleado.size(); i++){
-            dc.addElement(ListaEmpleado.get(i).getIdEmpleado() +"|" + ListaEmpleado.get(i).getNombreEmp()+" "+ ListaEmpleado.get(i).getApellidoEmp());
-        }       
+       
+       LlenarPrimTablaProd();
+       encontrado=false;
     }
     
-    ///METODO PARA LLENAR TABLA
-    public void LlenarTablaEmp(){
-            List<Empleado> ListaEmpleado;
-            ListaEmpleado= control_empleado.findEmpleadoEntities();
-        
-            for(int i=0; i<ListaEmpleado.size(); i++){
-            String[] registroEmp = { ListaEmpleado.get(i).getIdEmpleado().toString(), ListaEmpleado.get(i).getNombreEmp(),ListaEmpleado.get(i).getApellidoEmp(),
-                                    ListaEmpleado.get(i).getTelefonoEmp()};
-            modeloEmp.addRow(registroEmp);
+    public void LlenarPrimTablaProd(){
+            //Este metodo solo se llamara 1 vez al iniciar el aplicativo
+            ListaProducto= control_Producto.findProductoEntities();            
+            for(int i=0; i<ListaProducto.size(); i++){         
+            
+            //ListaProducto.get(i).getFechaIngresoProd().toString()
+            String[] registroProd = { ListaProducto.get(i).getIdProducto().toString(), ListaProducto.get(i).getNombreProd(),String.valueOf(ListaProducto.get(i).getFechaIngresoProd()),
+                                    String.valueOf(ListaProducto.get(i).getPrecioProd()) ,ListaProducto.get(i).getExistenciaProd().toString(),ListaProducto.get(i).getIdProveedor().getNombreProv().toString(),
+                                    ListaProducto.get(i).getIdCatProducto().getNombreCatProd()};
+            modeloProd.addRow(registroProd);
         }
     
     }
+    public void LlenarTablaProd(){
+            //Este metodo se llamara cada vez que queramos actualizar la tabla Prod (al momento que se agrega un prod
+            //al detalle venta            
+            //ListaProducto= control_Producto.findProductoEntities();             
+            for(int i=0; i<ListaProducto.size(); i++){         
+            
+            //ListaProducto.get(i).getFechaIngresoProd().toString()
+            String[] registroProd = { ListaProducto.get(i).getIdProducto().toString(), ListaProducto.get(i).getNombreProd(),String.valueOf(ListaProducto.get(i).getFechaIngresoProd()),
+                                    String.valueOf(ListaProducto.get(i).getPrecioProd()) ,ListaProducto.get(i).getExistenciaProd().toString(),ListaProducto.get(i).getIdProveedor().getNombreProv().toString(),
+                                    ListaProducto.get(i).getIdCatProducto().getNombreCatProd()};
+            modeloProd.addRow(registroProd);
+        }    
+    }
+    
+    public void BuscarProd(int id){
+            
+        for(int i=0; i<ListaProducto.size(); i++){
+            int a;
+            a=Integer.parseInt(ListaProducto.get(i).getIdProducto().toString());
+            
+            if(a==id){                
+                //ListaProducto.get(i).getFechaIngresoProd().toString()
+                modeloProd.getDataVector().clear();
+                
+            String[] registroProd = { ListaProducto.get(i).getIdProducto().toString(), ListaProducto.get(i).getNombreProd(),String.valueOf(ListaProducto.get(i).getFechaIngresoProd()),
+                                    String.valueOf(ListaProducto.get(i).getPrecioProd()) ,ListaProducto.get(i).getExistenciaProd().toString(),ListaProducto.get(i).getIdProveedor().getNombreProv().toString(),
+                                    ListaProducto.get(i).getIdCatProducto().getNombreCatProd().toString()};
+            modeloProd.addRow(registroProd);
+            encontrado=true;
+            break;
+            }else{
+             encontrado=false;            
+            
+            
+            }           
+        }
+        
+            if(encontrado==true){
+                JOptionPane.showMessageDialog(null,"Producto encontrado");
+            }else{
+                  JOptionPane.showMessageDialog(null,"Producto no encontrado");
+                  modeloProd.getDataVector().clear();
+                  LlenarTablaProd();
+            }
+    }
+    
+    
+    
     
 
     /**
@@ -68,97 +115,119 @@ EmpleadoJpaController control_empleado = new EmpleadoJpaController(entityMain.ge
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnGenerarVenta = new javax.swing.JButton();
-        cmbEmpleado = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        txtIDVentaActual = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblProductos = new javax.swing.JTable();
+        txtBuscarProd = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtIDVenta = new javax.swing.JTextField();
-        txtFecha = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtEmpleado = new javax.swing.JTable();
+        btnBuscarProd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnGenerarVenta.setText("Generar Venta");
-        btnGenerarVenta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGenerarVentaActionPerformed(evt);
-            }
-        });
+        jLabel4.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
+        jLabel4.setText("Detalle de Venta");
 
-        jLabel1.setText("ID Venta:");
+        jLabel1.setFont(new java.awt.Font("Dubai", 1, 18)); // NOI18N
+        jLabel1.setText("ID Venta Actual:");
 
-        jLabel2.setText("Fecha:");
+        txtIDVentaActual.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jLabel3.setText("Empleado:");
-
-        jtEmpleado.setModel(new javax.swing.table.DefaultTableModel(
+        tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre de Empleado", "Apellido de Empleado", "Dirección", "Telefono"
+                "ID ", "Nombre", "Fecha de Ingreso", "Precio Unitario", "Existencias", "Proveedor", "Categoria"
             }
-        ));
-        jScrollPane1.setViewportView(jtEmpleado);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tblProductos);
+
+        txtBuscarProd.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Dubai", 1, 18)); // NOI18N
+        jLabel2.setText("ID Producto:");
+
+        jLabel3.setFont(new java.awt.Font("Dubai", 1, 18)); // NOI18N
+        jLabel3.setText("BUSCAR PRODUCTO");
+
+        btnBuscarProd.setFont(new java.awt.Font("Dubai", 1, 18)); // NOI18N
+        btnBuscarProd.setText("Buscar");
+        btnBuscarProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarProdActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnGenerarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(34, 34, 34)
+                        .addGap(512, 512, 512)
+                        .addComponent(jLabel4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtFecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
-                                .addComponent(txtIDVenta, javax.swing.GroupLayout.Alignment.LEADING)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 781, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtIDVentaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(30, 30, 30)
+                                .addComponent(txtBuscarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(btnBuscarProd))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(64, 64, 64)
+                                .addComponent(jLabel3)))))
+                .addContainerGap(353, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtIDVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(cmbEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addComponent(btnGenerarVenta)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85))))
+                    .addComponent(txtIDVentaActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtBuscarProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarProd))
+                .addGap(38, 38, 38)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(281, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGenerarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarVentaActionPerformed
+    private void btnBuscarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProdActionPerformed
         // TODO add your handling code here:
-        Llenar_Empleados();
-    }//GEN-LAST:event_btnGenerarVentaActionPerformed
+        int idProd;
+        idProd= Integer.parseInt(txtBuscarProd.getText());
+        BuscarProd(idProd);
+        
+    }//GEN-LAST:event_btnBuscarProdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,14 +265,14 @@ EmpleadoJpaController control_empleado = new EmpleadoJpaController(entityMain.ge
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGenerarVenta;
-    private javax.swing.JComboBox<String> cmbEmpleado;
+    private javax.swing.JButton btnBuscarProd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jtEmpleado;
-    private javax.swing.JTextField txtFecha;
-    private javax.swing.JTextField txtIDVenta;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable tblProductos;
+    private javax.swing.JTextField txtBuscarProd;
+    public javax.swing.JTextField txtIDVentaActual;
     // End of variables declaration//GEN-END:variables
 }

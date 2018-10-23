@@ -150,10 +150,14 @@ public class nuevaVenta extends javax.swing.JFrame {
         
        // venta.procedureVenta(fechaA,total,idemp);
         JOptionPane.showMessageDialog(null,retorno[0]);
-         JOptionPane.showMessageDialog(null,retorno[1]);
+        JOptionPane.showMessageDialog(null,retorno[1]);
         JOptionPane.showMessageDialog(null,fechaA);
         //JOptionPane.showMessageDialog(null,"Venta Generada");
-        //Ventas_P Nventa=new Ventas_P();
+        frmVentaProd frmDetalleV=new frmVentaProd();
+        frmDetalleV.txtIDVentaActual.setText(retorno[1]);
+        this.setVisible(false);
+        this.dispose();
+        frmDetalleV.setVisible(true);
         //Nventa.setVisible(true);
     }//GEN-LAST:event_btnGenerarVentaActionPerformed
 
