@@ -23,4 +23,46 @@ public class DetalleVenta {
         this.precioUVenta = precioUVenta;
         this.cantidadVenta = cantidadVenta;
     }
+
+    public int getIdVenta() {
+        return idVenta;
+    }
+
+    public int getIdProducto() {
+        return idProducto;
+    }
+
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+
+    public double getPrecioUVenta() {
+        return precioUVenta;
+    }
+
+    public int getCantidadVenta() {
+        return cantidadVenta;
+    }
+
+    public void setIdVenta(int idVenta) {
+        this.idVenta = idVenta;
+    }
+
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
+    }
+
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
+
+    public void setPrecioUVenta(double precioUVenta) {
+        this.precioUVenta = precioUVenta;
+    }
+
+    public void setCantidadVenta(int cantidadVenta) {
+        this.cantidadVenta = cantidadVenta;
+    }
+    
+    
 }
