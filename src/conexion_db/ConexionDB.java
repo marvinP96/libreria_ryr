@@ -100,6 +100,48 @@ public class ConexionDB {
        }
        return resultado;
    }
+   
+   
+   
+   public String[] procIniciarVenta(String fecha,Integer total,Integer id_empleado)
+   {
+       
+       //String resultado=null;
+       String[] retorno = new String[3];
+       try {            
+           
+            CallableStatement proc = conn.prepareCall("{CALL iniciarVenta(?,?,?,?,?)}");
+            proc.setString("FECHA_VENT",fecha );
+            proc.setInt("TOTAL_VENT",total );
+            proc.setInt("ID_EMPLEADO",id_empleado );
+            proc.registerOutParameter("msj", java.sql.Types.VARCHAR);
+            proc.registerOutParameter("ultimoIdV", java.sql.Types.VARCHAR);
+            proc.executeQuery();            
+            
+            //resultado = proc.getString("msj");
+            retorno[0]= proc.getString("msj");
+            //En este caso retornamos el parametro 5 (ultimo id de venta)
+            retorno[1]=proc.getString("ultimoIdV");
+        } 
+       catch (Exception e) {                  
+            JOptionPane.showMessageDialog(null, e);
+       }
+       return retorno;
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
 
 
 }
