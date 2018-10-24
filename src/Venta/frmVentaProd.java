@@ -12,6 +12,7 @@ import entidades.ProductoJpaController;
 import entidades.entityMain;
 import java.awt.Font;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 
@@ -74,7 +75,8 @@ public class frmVentaProd extends javax.swing.JFrame {
     public void LlenarTablaProd(){
             //Este metodo se llamara cada vez que queramos actualizar la tabla Prod (al momento que se agrega un prod
             //al detalle venta            
-            //ListaProducto= control_Producto.findProductoEntities();             
+            //ListaProducto= control_Producto.findProductoEntities();
+            modeloProd.getDataVector().clear();
             for(int i=0; i<ListaProducto.size(); i++){         
             
             //ListaProducto.get(i).getFechaIngresoProd().toString()
@@ -166,19 +168,9 @@ public class frmVentaProd extends javax.swing.JFrame {
                                 String nombreProd = (String) tblProductos.getValueAt(filaseleccionada, 1); 
                                 double precioXCant;
                                 precioXCant=PrecioUnitario*cantidadProdReq;
+                                AddProdDetalleV(Integer.parseInt(idProd),idVentaAct,PrecioUnitario,cantidadProdExis,cantidadProdReq,nombreProd,precioXCant);
                                 
                                 
-                                if(cont1==0)
-                                {        
-                                        
-                                        AddProdDetalleV(Integer.parseInt(idProd),idVentaAct,PrecioUnitario,cantidadProdExis,cantidadProdReq,nombreProd,precioXCant);
-                                        String[] registroProd = {Integer.toString(idVentaAct),idProd,nombreProd,Double.toString(PrecioUnitario),Integer.toString(cantidadProdReq),
-                                                                   Double.toString(precioXCant)};
-                                        modeloDetalleV.addRow(registroProd);
-                                }
-                                else
-                                {
-                                }
                                 
                                 
                             }
@@ -214,45 +206,54 @@ public class frmVentaProd extends javax.swing.JFrame {
     //Si existe se suma la cantidad que llevara y si no pues se agrega
     public void AddProdDetalleV(int idProd, int idVenta,double precioU, int cantProdExis,int cantProdReq, String nombreProd,double  precioXCant){
         
-            DetalleVenta dVProd= new DetalleVenta(idVenta,idProd,nombreProd,precioU,cantProdReq,precioXCant);
-            this.listaDetalleV.add(dVProd);
+          
             
+                    if(cont1==0)
+                       {                           
+                           for(int i=0; i<ListaProducto.size(); i++)
+                           {
+                                int myIdProd;
+                                myIdProd=Integer.parseInt(ListaProducto.get(i).getIdProducto().toString());
+
+                                if(myIdProd==idProd)
+                                {     
+                                    BigInteger cantProdRequerido = BigInteger.valueOf(cantProdReq);
+                                    
+                                    ListaProducto.get(i).setExistenciaProd(ListaProducto.get(i).getExistenciaProd().subtract(cantProdRequerido));
+                                    LlenarTablaProd();
+                                    DetalleVenta dVProd= new DetalleVenta(idVenta,idProd,nombreProd,precioU,cantProdReq,precioXCant);
+                                    this.listaDetalleV.add(dVProd);
+                                    llenarTablaDetalleV();
+                                    cont1++; 
+
+                              
+                                encontrado=true;
+                                break;
+                                }else
+                                {
+                                 encontrado=false;            
+
+
+                                }           
+                            }
+                           
+                           
+                        }
+                        else
+                        {
+                                    
+                        }
         
         
-        
-        
-//            for(int i=0; i<ListaProducto.size(); i++){
-//                int a;
-//                a=Integer.parseInt(ListaProducto.get(i).getIdProducto().toString());
-//
-//                if(a==idProd){                
-//                    //ListaProducto.get(i).getFechaIngresoProd().toString()
-//                    modeloProd.getDataVector().clear();
-//
-//                String[] registroProd = { ListaProducto.get(i).getIdProducto().toString(), ListaProducto.get(i).getNombreProd(),String.valueOf(ListaProducto.get(i).getFechaIngresoProd()),
-//                                        String.valueOf(ListaProducto.get(i).getPrecioProd()) ,ListaProducto.get(i).getExistenciaProd().toString(),ListaProducto.get(i).getIdProveedor().getNombreProv().toString(),
-//                                        ListaProducto.get(i).getIdCatProducto().getNombreCatProd().toString()};
-//                modeloProd.addRow(registroProd);
-//                encontrado=true;
-//                break;
-//                }else{
-//                 encontrado=false;            
-//
-//
-//                }           
-//            }
-//        
-//            if(encontrado==true){
-//                JOptionPane.showMessageDialog(null,"Producto encontrado");
-//            }else{
-//                  JOptionPane.showMessageDialog(null,"Producto no encontrado en Detalle Venta");
-//                  modeloProd.getDataVector().clear();
-//                  //LlenarTablaProd();
-//            }
     
+    }
     
-    
-    
+    public void llenarTablaDetalleV(){
+        for(int i=0; i<listaDetalleV.size(); i++){            
+            String[] registroDetalleV = {Integer.toString(listaDetalleV.get(i).getIdVenta()),Integer.toString(listaDetalleV.get(i).getIdProducto()),listaDetalleV.get(i).getNombreProducto(),
+                                          Double.toString(listaDetalleV.get(i).getPrecioUVenta()),Integer.toString(listaDetalleV.get(i).getCantidadVenta()),Double.toString(listaDetalleV.get(i).getPrecXcantidad())};
+            modeloDetalleV.addRow(registroDetalleV);
+        }
     }
     
     
