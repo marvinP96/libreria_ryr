@@ -33,14 +33,15 @@ public class frmVentaProd extends javax.swing.JFrame {
      //Declaramos el modelo
     
     DefaultTableModel modeloProd;
+    DefaultTableModel modeloDetalleV;
     List<Producto> ListaProducto;
     Boolean encontrado;
     ArrayList <DetalleVenta> listaDetalleV;
-    
+    int cont1;
     public frmVentaProd() {
         initComponents();
         modeloProd=(DefaultTableModel) this.tblProductos.getModel();
-       txtIDVentaActual.setEditable(false); 
+        txtIDVentaActual.setEditable(false); 
        //txtIDVentaActual.setEnabled(false);
         tblProductos.getTableHeader().setFont(new Font("Dubai", 1, 16)); 
        
@@ -53,8 +54,8 @@ public class frmVentaProd extends javax.swing.JFrame {
        
        ///Esto es para mientras
        txtIDVentaActual.setText("21");
-       
-       
+       cont1=0;
+       modeloDetalleV=(DefaultTableModel) this.tblDetalleVenta.getModel();
     }
     
     public void LlenarPrimTablaProd(){
@@ -162,6 +163,23 @@ public class frmVentaProd extends javax.swing.JFrame {
                             {
                                 double PrecioUnitario;                
                                 PrecioUnitario=Double.parseDouble(tblProductos.getValueAt(filaseleccionada, 3).toString());
+                                String nombreProd = (String) tblProductos.getValueAt(filaseleccionada, 1); 
+                                double precioXCant;
+                                precioXCant=PrecioUnitario*cantidadProdReq;
+                                
+                                
+                                if(cont1==0)
+                                {        
+                                        
+                                        AddProdDetalleV(Integer.parseInt(idProd),idVentaAct,PrecioUnitario,cantidadProdExis,cantidadProdReq,nombreProd,precioXCant);
+                                        String[] registroProd = {Integer.toString(idVentaAct),idProd,nombreProd,Double.toString(PrecioUnitario),Integer.toString(cantidadProdReq),
+                                                                   Double.toString(precioXCant)};
+                                        modeloDetalleV.addRow(registroProd);
+                                }
+                                else
+                                {
+                                }
+                                
                                 
                             }
                             else
@@ -194,40 +212,43 @@ public class frmVentaProd extends javax.swing.JFrame {
     
     //Este metodo es para buscar en la lista detalle de venta un producto
     //Si existe se suma la cantidad que llevara y si no pues se agrega
-    public void ProdDetalleV(int idProd, int idVenta,double precioU, int cantProdExis,int cantProdPed){
+    public void AddProdDetalleV(int idProd, int idVenta,double precioU, int cantProdExis,int cantProdReq, String nombreProd,double  precioXCant){
         
-        for(int i=0; i<ListaProducto.size(); i++){
-            int a;
-            a=Integer.parseInt(ListaProducto.get(i).getIdProducto().toString());
+            DetalleVenta dVProd= new DetalleVenta(idVenta,idProd,nombreProd,precioU,cantProdReq,precioXCant);
+            this.listaDetalleV.add(dVProd);
             
-            if(a==idProd){                
-                //ListaProducto.get(i).getFechaIngresoProd().toString()
-                modeloProd.getDataVector().clear();
-                
-            String[] registroProd = { ListaProducto.get(i).getIdProducto().toString(), ListaProducto.get(i).getNombreProd(),String.valueOf(ListaProducto.get(i).getFechaIngresoProd()),
-                                    String.valueOf(ListaProducto.get(i).getPrecioProd()) ,ListaProducto.get(i).getExistenciaProd().toString(),ListaProducto.get(i).getIdProveedor().getNombreProv().toString(),
-                                    ListaProducto.get(i).getIdCatProducto().getNombreCatProd().toString()};
-            modeloProd.addRow(registroProd);
-            encontrado=true;
-            break;
-            }else{
-             encontrado=false;            
-            
-            
-            }           
-        }
         
-            if(encontrado==true){
-                JOptionPane.showMessageDialog(null,"Producto encontrado");
-            }else{
-                  JOptionPane.showMessageDialog(null,"Producto no encontrado en Detalle Venta");
-                  modeloProd.getDataVector().clear();
-                  
-                  
-                  
-                  
-                  //LlenarTablaProd();
-            }
+        
+        
+        
+//            for(int i=0; i<ListaProducto.size(); i++){
+//                int a;
+//                a=Integer.parseInt(ListaProducto.get(i).getIdProducto().toString());
+//
+//                if(a==idProd){                
+//                    //ListaProducto.get(i).getFechaIngresoProd().toString()
+//                    modeloProd.getDataVector().clear();
+//
+//                String[] registroProd = { ListaProducto.get(i).getIdProducto().toString(), ListaProducto.get(i).getNombreProd(),String.valueOf(ListaProducto.get(i).getFechaIngresoProd()),
+//                                        String.valueOf(ListaProducto.get(i).getPrecioProd()) ,ListaProducto.get(i).getExistenciaProd().toString(),ListaProducto.get(i).getIdProveedor().getNombreProv().toString(),
+//                                        ListaProducto.get(i).getIdCatProducto().getNombreCatProd().toString()};
+//                modeloProd.addRow(registroProd);
+//                encontrado=true;
+//                break;
+//                }else{
+//                 encontrado=false;            
+//
+//
+//                }           
+//            }
+//        
+//            if(encontrado==true){
+//                JOptionPane.showMessageDialog(null,"Producto encontrado");
+//            }else{
+//                  JOptionPane.showMessageDialog(null,"Producto no encontrado en Detalle Venta");
+//                  modeloProd.getDataVector().clear();
+//                  //LlenarTablaProd();
+//            }
     
     
     

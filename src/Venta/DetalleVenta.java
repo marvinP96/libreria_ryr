@@ -15,14 +15,18 @@ public class DetalleVenta {
     private String nombreProducto;
     private double precioUVenta;
     private int cantidadVenta;
+    private double precXcantidad;
 
-    public DetalleVenta(int idVenta, int idProducto, String nombreProducto, double precioUVenta, int cantidadVenta) {
+    public DetalleVenta(int idVenta, int idProducto, String nombreProducto, double precioUVenta, int cantidadVenta, double precXcantidad) {
         this.idVenta = idVenta;
         this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
         this.precioUVenta = precioUVenta;
         this.cantidadVenta = cantidadVenta;
+        this.precXcantidad = precXcantidad;
     }
+
+    
 
     public int getIdVenta() {
         return idVenta;
@@ -44,6 +48,11 @@ public class DetalleVenta {
         return cantidadVenta;
     }
 
+    public double getPrecXcantidad() {
+        return precXcantidad;
+    }
+    
+
     public void setIdVenta(int idVenta) {
         this.idVenta = idVenta;
     }
@@ -62,6 +71,10 @@ public class DetalleVenta {
 
     public void setCantidadVenta(int cantidadVenta) {
         this.cantidadVenta = cantidadVenta;
+    }
+
+    public void setPrecXcantidad(double precXcantidad) {
+        this.precXcantidad = precXcantidad;
     }
     
     
