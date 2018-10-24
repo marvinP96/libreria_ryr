@@ -170,8 +170,13 @@ public class frmVentaProd extends javax.swing.JFrame {
                                 precioXCant=PrecioUnitario*cantidadProdReq;
                                 AddProdDetalleV(Integer.parseInt(idProd),idVentaAct,PrecioUnitario,cantidadProdExis,cantidadProdReq,nombreProd,precioXCant);
                                 
-                                
-                                
+                                idProd="";
+                                idVentaAct=0;
+                                cantidadProdReq=0;
+                                precioXCant=0.0;
+                                cantidadProdExis=0;
+                                nombreProd="";
+                                PrecioUnitario=0.0;
                                 
                             }
                             else
@@ -180,19 +185,7 @@ public class frmVentaProd extends javax.swing.JFrame {
                             }   
                         }  
                     }                    
-                }
-
-
-
-               
-                
-                
-                
-                //ProdDetalleV(idProd,idVentaAct,PrecioUnitario,cantidadProdExis,cantidadProdReq);
-                
-                
-                
-                
+                }  
             }else{
                 JOptionPane.showMessageDialog(null,"Solo debe seleccionar  1 producto a la vez");
             }
@@ -205,11 +198,7 @@ public class frmVentaProd extends javax.swing.JFrame {
     //Este metodo es para buscar en la lista detalle de venta un producto
     //Si existe se suma la cantidad que llevara y si no pues se agrega
     public void AddProdDetalleV(int idProd, int idVenta,double precioU, int cantProdExis,int cantProdReq, String nombreProd,double  precioXCant){
-        
-          
-            
-                    if(cont1==0)
-                       {                           
+                 
                            for(int i=0; i<ListaProducto.size(); i++)
                            {
                                 int myIdProd;
@@ -222,36 +211,73 @@ public class frmVentaProd extends javax.swing.JFrame {
                                     ListaProducto.get(i).setExistenciaProd(ListaProducto.get(i).getExistenciaProd().subtract(cantProdRequerido));
                                     LlenarTablaProd();
                                     DetalleVenta dVProd= new DetalleVenta(idVenta,idProd,nombreProd,precioU,cantProdReq,precioXCant);
-                                    this.listaDetalleV.add(dVProd);
-                                    llenarTablaDetalleV();
-                                    cont1++; 
-
-                              
-                                encontrado=true;
+                                    
+                                    if(cont1==0){
+                                        //Solo la primera vez que se agregue un producto al detalle
+                                        this.listaDetalleV.add(dVProd);
+                                        llenarTablaDetalleV();
+                                        cont1++; 
+                                    }else{
+                                        //Se ejecutara esto cuando en la lista exista mas de un detalle(producto) agregado
+                                        //para verificar si existe y asi se suma en detalle
+                                        
+                                        for(int j=0;j<listaDetalleV.size();j++){
+                                           int  myIdProdDet;
+                                           myIdProdDet=listaDetalleV.get(j).getIdProducto();
+                                            
+                                           if(myIdProdDet==idProd)
+                                            {
+                                              listaDetalleV.get(j).setCantidadVenta(listaDetalleV.get(j).getCantidadVenta()+cantProdReq);
+                                               llenarTablaDetalleV();
+                                               cont1++;
+                                               encontrado=true;
+                                               break;
+                                            }else
+                                            {
+                                                encontrado=false;
+                                                
+                                            }
+                                        }
+                                        
+                                        
+                                        if(encontrado==true){
+                                             
+                                            
+                                        }else{
+                                             this.listaDetalleV.add(dVProd);
+                                                llenarTablaDetalleV();
+                                                cont1++;  
+                                        }
+                                    }
+                                    
+                                
                                 break;
                                 }else
                                 {
-                                 encontrado=false;            
+                                             
 
 
                                 }           
                             }
                            
                            
-                        }
-                        else
-                        {
-                                    
-                        }
+                       
         
         
     
     }
     
     public void llenarTablaDetalleV(){
+        modeloDetalleV.getDataVector().clear();
+//         for (int j=0;j>registroDetalleV.length; j++){
+//            registroDetalleV[j] = null;
+//        }
+        
+   
         for(int i=0; i<listaDetalleV.size(); i++){            
             String[] registroDetalleV = {Integer.toString(listaDetalleV.get(i).getIdVenta()),Integer.toString(listaDetalleV.get(i).getIdProducto()),listaDetalleV.get(i).getNombreProducto(),
                                           Double.toString(listaDetalleV.get(i).getPrecioUVenta()),Integer.toString(listaDetalleV.get(i).getCantidadVenta()),Double.toString(listaDetalleV.get(i).getPrecXcantidad())};
+           
             modeloDetalleV.addRow(registroDetalleV);
         }
     }
