@@ -33,7 +33,6 @@ public class frmFacturacion extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-    frmCliente cli= new frmCliente();
 
    
 
