@@ -11,6 +11,10 @@ import entidades.Producto;
 import entidades.ProductoJpaController;
 import entidades.entityMain;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
@@ -18,8 +22,13 @@ import javax.swing.DefaultComboBoxModel;
 
 import java.sql.*;
 import java.util.ArrayList;
+import javafx.scene.effect.Light.Point;
+import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -63,8 +72,47 @@ public class frmVentaProd extends javax.swing.JFrame {
        
        tblProductos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 
        tblDetalleVenta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 
-       
+      PopUpTable();
+      seleccionarFilaTblProd();
     }
+    
+    public void PopUpTable(){
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        JMenuItem menuItem1= new JMenuItem("Mensaje De Exito", new ImageIcon(getClass().getResource("seleccionarA.png" )));
+        //JMenuItem menuItem1= new JMenuItem("Mensaje De Exito");
+        menuItem1.addActionListener(new ActionListener(){        
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //JOptionPane.showMessageDialog(null,"HOLA AMigos","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                SeleccionarProd();
+            }
+        
+        
+        });
+        
+        popupMenu.add(menuItem1);
+        tblProductos.setComponentPopupMenu(popupMenu);
+        
+    }
+    
+    public void seleccionarFilaTblProd(){
+        tblProductos.addMouseListener(new MouseAdapter(){
+            public void mousePressed(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                        java.awt.Point p = e.getPoint();
+                        int rowNumber = tblProductos.rowAtPoint(p);
+                        tblProductos.getSelectionModel().setSelectionInterval(rowNumber, rowNumber);
+                }
+        }     
+        
+        });    
+    }
+    
+    
+        
+
+    
     
     public void LlenarPrimTablaProd(){
             //Este metodo solo se llamara 1 vez al iniciar el aplicativo
@@ -127,14 +175,8 @@ public class frmVentaProd extends javax.swing.JFrame {
     }
     
     public void SeleccionarProd(){
-        //Para saber cuantas filas de la tabla hemos seleccionado
         
-        cuentaFilasSeleccionadas = tblProductos.getSelectedRowCount(); 
-        if(cuentaFilasSeleccionadas==0){
-            JOptionPane.showMessageDialog(null,"Debe seleccionar un producto");
-            
-        }else{
-            if(cuentaFilasSeleccionadas==1){
+           
                 //contProd=1;
                 int filaseleccionada =  tblProductos.getSelectedRow();
                 String idProd = (String) tblProductos.getValueAt(filaseleccionada, 0);      
@@ -193,10 +235,8 @@ public class frmVentaProd extends javax.swing.JFrame {
                         }  
                     }                    
                 }  
-            }else{
-                JOptionPane.showMessageDialog(null,"Solo debe seleccionar  1 producto a la vez");
-            }
-        }
+            
+        
     }
     
     //Este metodo es para buscar en la lista detalle de venta un producto
@@ -327,7 +367,6 @@ public class frmVentaProd extends javax.swing.JFrame {
         btnBuscarProd = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblDetalleVenta = new javax.swing.JTable();
-        btnSeleccionarProd = new javax.swing.JButton();
         txtCantidadProdReq = new javax.swing.JTextField();
         txtSubtotal = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -401,14 +440,6 @@ public class frmVentaProd extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tblDetalleVenta);
 
-        btnSeleccionarProd.setFont(new java.awt.Font("Dubai", 1, 18)); // NOI18N
-        btnSeleccionarProd.setText("Seleccionar Producto");
-        btnSeleccionarProd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionarProdActionPerformed(evt);
-            }
-        });
-
         txtCantidadProdReq.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         txtSubtotal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -474,17 +505,15 @@ public class frmVentaProd extends javax.swing.JFrame {
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
                                     .addComponent(jScrollPane2))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnSeleccionarProd)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel5)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel6)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -511,9 +540,7 @@ public class frmVentaProd extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(txtCantidadProdReq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSeleccionarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -540,11 +567,6 @@ public class frmVentaProd extends javax.swing.JFrame {
         BuscarProd(idProd);
         
     }//GEN-LAST:event_btnBuscarProdActionPerformed
-
-    private void btnSeleccionarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarProdActionPerformed
-        // TODO add your handling code here:
-        SeleccionarProd();
-    }//GEN-LAST:event_btnSeleccionarProdActionPerformed
 
     private void btnEliminarProdSelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProdSelActionPerformed
         // TODO add your handling code here:
@@ -589,7 +611,6 @@ public class frmVentaProd extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarProd;
     private javax.swing.JButton btnEliminarProdSel;
-    private javax.swing.JButton btnSeleccionarProd;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
