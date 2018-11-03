@@ -8,8 +8,12 @@ package conexion_db;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -34,6 +38,8 @@ public class ConexionDB {
     }
   
   
+    
+    
    public String procedureVenta(String fecha,Integer total,Integer id_empleado)
    {
        
@@ -129,6 +135,31 @@ public class ConexionDB {
        return retorno;
    }
    
+   public ResultSet selectfact(String _idVenta){
+       ResultSet rs=null;
+       try{
+           PreparedStatement sql=conn.prepareStatement("select dv.id_venta,pd.nombre_prod,dv.precio_uni_vent,dv.cantidad_venta from detalle_venta dv\n" +
+                                                       "join producto pd on pd.id_producto=dv.id_producto\n" +
+                                                       "join venta vt on vt.id_venta=dv.id_venta\n" +
+                                                       "where vt.id_venta=?");
+           sql.setString(1,_idVenta);
+           rs=sql.executeQuery();
+       }catch(Exception e){
+           
+       }
+       return rs;
+   }
+   public ResultSet selectcliente(String _Nregistro){
+       ResultSet rs=null;
+       try{
+           PreparedStatement sql1=conn.prepareStatement("select * from cliente where n_registro_clie=?");
+           sql1.setString(1,_Nregistro);
+           rs=sql1.executeQuery();
+       }catch(Exception e){
+           
+       }
+       return rs;
+   }
    
    
    
