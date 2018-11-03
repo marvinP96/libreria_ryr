@@ -211,7 +211,7 @@ public class frmVentaProd extends javax.swing.JFrame {
                 //contProd=1;
                 int filaseleccionada =  tblProductos.getSelectedRow();
                 String idProd = (String) tblProductos.getValueAt(filaseleccionada, 0);      
-                JOptionPane.showMessageDialog(null,"Producto seleccionado: "+idProd);                
+                //JOptionPane.showMessageDialog(null,"Producto seleccionado: "+idProd);                
                 
                 //Agregar el producto  a la lista Detalle de Venta
                 //DetalleVenta nmbProd= new DetalleVenta(1,21,"Lapiz",0.35,2);
@@ -356,7 +356,7 @@ public class frmVentaProd extends javax.swing.JFrame {
                      
                      if(myIdProd==idProd)
                        {                         
-                           JOptionPane.showMessageDialog(null,"Producto seleccionado: "+idProd);
+                           //JOptionPane.showMessageDialog(null,"Producto seleccionado: "+idProd);
                            
                            
                            BigInteger cantProdDevuelta = BigInteger.valueOf(cantProdDet);                                    
@@ -370,22 +370,23 @@ public class frmVentaProd extends javax.swing.JFrame {
                                if(myIdProdDet==idProd){
                                    listaDetalleV.remove(j);
                                    JOptionPane.showMessageDialog(null,"Producto quitado exitosamente "+idProd);
+                                   while (modeloDetalleV.getRowCount() > 0)
+                                        {
+                                        modeloDetalleV.removeRow(0);
+                                        }
+                                   total=0.0;
+                                   txtTotal.setText("$"+total);
                                    llenarTablaDetalleV();
+                                   break;
                                }
                            }
                            
-                           
+                           break;
                        }
                      
                      
                      
-                 }               
-                                
-                             
-                          
-                                    
-                
-                
+                 }              
                 
     }
     
@@ -419,7 +420,6 @@ public class frmVentaProd extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtTotal = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -501,8 +501,6 @@ public class frmVentaProd extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Dubai", 1, 18)); // NOI18N
         jLabel7.setText("Cantidad a vender:");
 
-        jButton1.setText("jButton1");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -516,10 +514,7 @@ public class frmVentaProd extends javax.swing.JFrame {
                                 .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtCantidadProdReq, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(224, 224, 224)
-                                .addComponent(jButton1))))
+                            .addComponent(jLabel4)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -553,17 +548,12 @@ public class frmVentaProd extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtIDVentaActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jButton1)))
+                .addGap(30, 30, 30)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtIDVentaActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -637,7 +627,6 @@ public class frmVentaProd extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarProd;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
