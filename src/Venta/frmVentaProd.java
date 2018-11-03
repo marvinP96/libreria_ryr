@@ -72,15 +72,17 @@ public class frmVentaProd extends javax.swing.JFrame {
        
        tblProductos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 
        tblDetalleVenta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 
-      PopUpTable();
+      PopUpTableProd();
+      PopUpTableDet();
       seleccionarFilaTblProd();
     }
     
-    public void PopUpTable(){
+    public void PopUpTableProd(){
         JPopupMenu popupMenu = new JPopupMenu();
         
-        JMenuItem menuItem1= new JMenuItem("Mensaje De Exito", new ImageIcon(getClass().getResource("seleccionarA.png" )));
+        JMenuItem menuItem1= new JMenuItem("Seleccionar Producto", new ImageIcon(getClass().getResource("seleccionarA.png" )));
         //JMenuItem menuItem1= new JMenuItem("Mensaje De Exito");
+         menuItem1.setFont(new Font("Dubai", Font.PLAIN, 15));
         menuItem1.addActionListener(new ActionListener(){        
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -95,6 +97,25 @@ public class frmVentaProd extends javax.swing.JFrame {
         tblProductos.setComponentPopupMenu(popupMenu);
         
     }
+    public void PopUpTableDet(){
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        JMenuItem menuItem1= new JMenuItem("Seleccionar Producto", new ImageIcon(getClass().getResource("quitarA.png" )));
+       
+        //JMenuItem menuItem1= new JMenuItem("Mensaje De Exito");
+        menuItem1.addActionListener(new ActionListener(){        
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               eliminarProdSel();
+            }
+        
+        
+        });
+        
+        popupMenu.add(menuItem1);
+        tblDetalleVenta.setComponentPopupMenu(popupMenu);
+        
+    }
     
     public void seleccionarFilaTblProd(){
         tblProductos.addMouseListener(new MouseAdapter(){
@@ -106,7 +127,18 @@ public class frmVentaProd extends javax.swing.JFrame {
                 }
         }     
         
-        });    
+        });
+        tblDetalleVenta.addMouseListener(new MouseAdapter(){
+            public void mousePressed(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                        java.awt.Point p = e.getPoint();
+                        int rowNumber = tblDetalleVenta.rowAtPoint(p);
+                        tblDetalleVenta.getSelectionModel().setSelectionInterval(rowNumber, rowNumber);
+                }
+        }     
+        
+        });
+        
     }
     
     
@@ -174,19 +206,16 @@ public class frmVentaProd extends javax.swing.JFrame {
             }
     }
     
-    public void SeleccionarProd(){
-        
+    public void SeleccionarProd(){       
            
                 //contProd=1;
                 int filaseleccionada =  tblProductos.getSelectedRow();
                 String idProd = (String) tblProductos.getValueAt(filaseleccionada, 0);      
-                JOptionPane.showMessageDialog(null,"Producto seleccionado: "+idProd);
-                
+                JOptionPane.showMessageDialog(null,"Producto seleccionado: "+idProd);                
                 
                 //Agregar el producto  a la lista Detalle de Venta
                 //DetalleVenta nmbProd= new DetalleVenta(1,21,"Lapiz",0.35,2);
-                //this.listaDetalleV.add(nmbProd);
-                
+                //this.listaDetalleV.add(nmbProd);                
                 //Pasar de la lista Detalle de Venta a una tabla
                 int idVentaAct;
                 idVentaAct=Integer.parseInt(txtIDVentaActual.getText()) ;
@@ -312,35 +341,52 @@ public class frmVentaProd extends javax.swing.JFrame {
     }
     
     public void eliminarProdSel(){
-        
-        cuentaFilasSeleccionadasB=0;
-        cuentaFilasSeleccionadasB = tblDetalleVenta.getSelectedRows().length; 
-        if(cuentaFilasSeleccionadasB==0){
-            JOptionPane.showMessageDialog(null,"Debe seleccionar un producto para eliminar del detalle de Venta");
-            cuentaFilasSeleccionadasB=0;
-        }else{
-            if(cuentaFilasSeleccionadasB==1){
-                //contProd=1;
+        //contProd=1;
                 int filaseleccionada =  tblDetalleVenta.getSelectedRow();
-                if(filaseleccionada<0){
-                    
-                }else{
-                String idProd = (String) tblDetalleVenta.getValueAt(filaseleccionada, 1);      
-                JOptionPane.showMessageDialog(null,"Producto seleccionado: "+idProd); 
-                cuentaFilasSeleccionadasB=0;
-                //QuitarProducto
-                //llenarTablaDetalleV();
+                //Obetenemos el id del producto y cantidad que queremos quitar de nuestro detalle venta
+                int idProd = Integer.parseInt(tblDetalleVenta.getValueAt(filaseleccionada, 1).toString());   
+                int cantProdDet=Integer.parseInt(tblDetalleVenta.getValueAt(filaseleccionada, 4).toString());  
                 
-                }
+                              
+                
+                 for(int i=0; i< ListaProducto.size(); i++)
+                 {
+                     int myIdProd;
+                     myIdProd=Integer.parseInt(ListaProducto.get(i).getIdProducto().toString());
+                     
+                     if(myIdProd==idProd)
+                       {                         
+                           JOptionPane.showMessageDialog(null,"Producto seleccionado: "+idProd);
+                           
+                           
+                           BigInteger cantProdDevuelta = BigInteger.valueOf(cantProdDet);                                    
+                           ListaProducto.get(i).setExistenciaProd(ListaProducto.get(i).getExistenciaProd().add(cantProdDevuelta));
+                           LlenarTablaProd();
+                           cantProdDet=0;
+                           
+                           for(int j=0; j< listaDetalleV.size(); j++){
+                               int myIdProdDet;
+                               myIdProdDet=listaDetalleV.get(j).getIdProducto();
+                               if(myIdProdDet==idProd){
+                                   listaDetalleV.remove(j);
+                                   JOptionPane.showMessageDialog(null,"Producto quitado exitosamente "+idProd);
+                                   llenarTablaDetalleV();
+                               }
+                           }
+                           
+                           
+                       }
+                     
+                     
+                     
+                 }               
+                                
+                             
+                          
+                                    
                 
                 
-            }else{
-                JOptionPane.showMessageDialog(null,"Solo debe seleccionar  1 producto a la vez");
-                cuentaFilasSeleccionadasB=0;
-            }
-        }
-    
-    
+                
     }
     
     
@@ -373,7 +419,6 @@ public class frmVentaProd extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtTotal = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        btnEliminarProdSel = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -456,14 +501,6 @@ public class frmVentaProd extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Dubai", 1, 18)); // NOI18N
         jLabel7.setText("Cantidad a vender:");
 
-        btnEliminarProdSel.setFont(new java.awt.Font("Dubai", 1, 18)); // NOI18N
-        btnEliminarProdSel.setText("Quitar Producto");
-        btnEliminarProdSel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarProdSelActionPerformed(evt);
-            }
-        });
-
         jButton1.setText("jButton1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -485,35 +522,32 @@ public class frmVentaProd extends javax.swing.JFrame {
                                 .addComponent(jButton1))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEliminarProdSel)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtIDVentaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(txtBuscarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(btnBuscarProd))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(64, 64, 64)
-                                        .addComponent(jLabel3))
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane2))
+                                .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                .addComponent(txtIDVentaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(30, 30, 30)
+                                .addComponent(txtBuscarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(btnBuscarProd))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(64, 64, 64)
+                                .addComponent(jLabel3))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -552,9 +586,7 @@ public class frmVentaProd extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEliminarProdSel)
-                .addGap(15, 15, 15))
+                .addGap(69, 69, 69))
         );
 
         pack();
@@ -567,11 +599,6 @@ public class frmVentaProd extends javax.swing.JFrame {
         BuscarProd(idProd);
         
     }//GEN-LAST:event_btnBuscarProdActionPerformed
-
-    private void btnEliminarProdSelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProdSelActionPerformed
-        // TODO add your handling code here:
-        eliminarProdSel();
-    }//GEN-LAST:event_btnEliminarProdSelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -610,7 +637,6 @@ public class frmVentaProd extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarProd;
-    private javax.swing.JButton btnEliminarProdSel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
