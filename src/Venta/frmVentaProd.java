@@ -19,6 +19,7 @@ import javax.swing.DefaultComboBoxModel;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -39,6 +40,9 @@ public class frmVentaProd extends javax.swing.JFrame {
     Boolean encontrado;
     ArrayList <DetalleVenta> listaDetalleV;
     int cont1;
+    double total;
+    int cuentaFilasSeleccionadasB;
+    int cuentaFilasSeleccionadas;
     public frmVentaProd() {
         initComponents();
         modeloProd=(DefaultTableModel) this.tblProductos.getModel();
@@ -48,15 +52,18 @@ public class frmVentaProd extends javax.swing.JFrame {
        
        LlenarPrimTablaProd();
        encontrado=false;
-       
        listaDetalleV= new ArrayList<>();
-       
-       
-       
        ///Esto es para mientras
        txtIDVentaActual.setText("21");
        cont1=0;
        modeloDetalleV=(DefaultTableModel) this.tblDetalleVenta.getModel();
+       total=0.0;
+       cuentaFilasSeleccionadasB=0;
+       cuentaFilasSeleccionadas=0;
+       
+       tblProductos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 
+       tblDetalleVenta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 
+       
     }
     
     public void LlenarPrimTablaProd(){
@@ -122,7 +129,7 @@ public class frmVentaProd extends javax.swing.JFrame {
     public void SeleccionarProd(){
         //Para saber cuantas filas de la tabla hemos seleccionado
         
-        int cuentaFilasSeleccionadas = tblProductos.getSelectedRowCount(); 
+        cuentaFilasSeleccionadas = tblProductos.getSelectedRowCount(); 
         if(cuentaFilasSeleccionadas==0){
             JOptionPane.showMessageDialog(null,"Debe seleccionar un producto");
             
@@ -190,9 +197,6 @@ public class frmVentaProd extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Solo debe seleccionar  1 producto a la vez");
             }
         }
-    
-    
-    
     }
     
     //Este metodo es para buscar en la lista detalle de venta un producto
@@ -227,7 +231,8 @@ public class frmVentaProd extends javax.swing.JFrame {
                                             
                                            if(myIdProdDet==idProd)
                                             {
-                                              listaDetalleV.get(j).setCantidadVenta(listaDetalleV.get(j).getCantidadVenta()+cantProdReq);
+                                               listaDetalleV.get(j).setCantidadVenta(listaDetalleV.get(j).getCantidadVenta()+cantProdReq);
+                                               listaDetalleV.get(j).setPrecXcantidad(listaDetalleV.get(j).getPrecXcantidad()+precioXCant);
                                                llenarTablaDetalleV();
                                                cont1++;
                                                encontrado=true;
@@ -238,11 +243,7 @@ public class frmVentaProd extends javax.swing.JFrame {
                                                 
                                             }
                                         }
-                                        
-                                        
-                                        if(encontrado==true){
-                                             
-                                            
+                                        if(encontrado==true){                                            
                                         }else{
                                              this.listaDetalleV.add(dVProd);
                                                 llenarTablaDetalleV();
@@ -253,33 +254,53 @@ public class frmVentaProd extends javax.swing.JFrame {
                                 
                                 break;
                                 }else
-                                {
-                                             
-
-
-                                }           
+                                {}           
                             }
-                           
-                           
-                       
-        
-        
-    
     }
     
     public void llenarTablaDetalleV(){
+        total=0.0;
         modeloDetalleV.getDataVector().clear();
-//         for (int j=0;j>registroDetalleV.length; j++){
-//            registroDetalleV[j] = null;
-//        }
-        
-   
         for(int i=0; i<listaDetalleV.size(); i++){            
             String[] registroDetalleV = {Integer.toString(listaDetalleV.get(i).getIdVenta()),Integer.toString(listaDetalleV.get(i).getIdProducto()),listaDetalleV.get(i).getNombreProducto(),
-                                          Double.toString(listaDetalleV.get(i).getPrecioUVenta()),Integer.toString(listaDetalleV.get(i).getCantidadVenta()),Double.toString(listaDetalleV.get(i).getPrecXcantidad())};
+                                          "$"+Double.toString(listaDetalleV.get(i).getPrecioUVenta()),Integer.toString(listaDetalleV.get(i).getCantidadVenta()),"$"+Double.toString(listaDetalleV.get(i).getPrecXcantidad())};
            
             modeloDetalleV.addRow(registroDetalleV);
+            total=total+listaDetalleV.get(i).getPrecXcantidad();
+            txtTotal.setText("$"+total);
         }
+    }
+    
+    public void eliminarProdSel(){
+        
+        cuentaFilasSeleccionadasB=0;
+        cuentaFilasSeleccionadasB = tblDetalleVenta.getSelectedRows().length; 
+        if(cuentaFilasSeleccionadasB==0){
+            JOptionPane.showMessageDialog(null,"Debe seleccionar un producto para eliminar del detalle de Venta");
+            cuentaFilasSeleccionadasB=0;
+        }else{
+            if(cuentaFilasSeleccionadasB==1){
+                //contProd=1;
+                int filaseleccionada =  tblDetalleVenta.getSelectedRow();
+                if(filaseleccionada<0){
+                    
+                }else{
+                String idProd = (String) tblDetalleVenta.getValueAt(filaseleccionada, 1);      
+                JOptionPane.showMessageDialog(null,"Producto seleccionado: "+idProd); 
+                cuentaFilasSeleccionadasB=0;
+                //QuitarProducto
+                //llenarTablaDetalleV();
+                
+                }
+                
+                
+            }else{
+                JOptionPane.showMessageDialog(null,"Solo debe seleccionar  1 producto a la vez");
+                cuentaFilasSeleccionadasB=0;
+            }
+        }
+    
+    
     }
     
     
@@ -313,6 +334,7 @@ public class frmVentaProd extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtTotal = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        btnEliminarProdSel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -396,10 +418,19 @@ public class frmVentaProd extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Dubai", 1, 18)); // NOI18N
         jLabel6.setText("Subtotal:");
 
+        txtTotal.setEditable(false);
         txtTotal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Dubai", 1, 18)); // NOI18N
         jLabel7.setText("Cantidad a vender:");
+
+        btnEliminarProdSel.setFont(new java.awt.Font("Dubai", 1, 18)); // NOI18N
+        btnEliminarProdSel.setText("Quitar Producto");
+        btnEliminarProdSel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarProdSelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -408,43 +439,46 @@ public class frmVentaProd extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtIDVentaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(30, 30, 30)
-                                .addComponent(txtBuscarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(btnBuscarProd))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(64, 64, 64)
-                                .addComponent(jLabel3))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSeleccionarProd)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(512, 512, 512)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtCantidadProdReq, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel4))))
+                            .addComponent(jLabel4)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnEliminarProdSel)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtIDVentaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(txtBuscarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(btnBuscarProd))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(64, 64, 64)
+                                        .addComponent(jLabel3))
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane2))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnSeleccionarProd)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel5)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel6)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -480,7 +514,9 @@ public class frmVentaProd extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))))
-                .addGap(69, 69, 69))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEliminarProdSel)
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -498,6 +534,11 @@ public class frmVentaProd extends javax.swing.JFrame {
         // TODO add your handling code here:
         SeleccionarProd();
     }//GEN-LAST:event_btnSeleccionarProdActionPerformed
+
+    private void btnEliminarProdSelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProdSelActionPerformed
+        // TODO add your handling code here:
+        eliminarProdSel();
+    }//GEN-LAST:event_btnEliminarProdSelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -536,6 +577,7 @@ public class frmVentaProd extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarProd;
+    private javax.swing.JButton btnEliminarProdSel;
     private javax.swing.JButton btnSeleccionarProd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
