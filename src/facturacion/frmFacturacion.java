@@ -510,7 +510,11 @@ public class frmFacturacion extends javax.swing.JFrame {
 
     private void btnSelecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecActionPerformed
         // TODO add your handling code here:
-        int filaseleccionada =  this.jTable2.getSelectedRow();
+        int filaseleccionada =0;
+        filaseleccionada =  this.jTable2.getSelectedRow();
+        if(filaseleccionada<0){
+            JOptionPane.showMessageDialog(null, "Debe Selecionar un Cliente");
+        }else{   
         this.IdCliente=Integer.parseInt(this.jTable2.getValueAt(filaseleccionada, 0).toString());
         NombreClie=this.jTable2.getValueAt(filaseleccionada, 1).toString();
         this.ApellidoClie=this.jTable2.getValueAt(filaseleccionada, 2).toString();
@@ -530,6 +534,7 @@ public class frmFacturacion extends javax.swing.JFrame {
         this.txtMunClie.setText(MuniClie);
         this.txtDepClie.setText(DepaClie);
         this.txtNClie.setText(NumRegisClie);
+        }
     }//GEN-LAST:event_btnSelecActionPerformed
 
     private void fecha2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fecha2KeyPressed
@@ -552,29 +557,34 @@ public class frmFacturacion extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(this.rbnCreditoF.isSelected()){
-           
-            ConexionDB fac=new ConexionDB();
-            String dia=Integer.toString(fecha2.getCalendar().get(Calendar.DAY_OF_MONTH+1));
-        String mes= Integer.toString(fecha2.getCalendar().get(Calendar.MONTH));
-        String year= Integer.toString(fecha2.getCalendar().get(Calendar.YEAR));
-        String fechaA=(dia+"-"+mes+"-"+year);
-        String date=fechaA;
-            fac.procedureFactura(this.IdCliente,date,Integer.parseInt(this.txtIdVenta.getText()),
-                1,Integer.parseInt(this.txtNumFact.getText()),1);
-        this.txtNomClie.setText("");
-        this.txtApellidoClie.setText("");
-        this.txtDirecClie.setText("");
-        this.txtNitClie.setText("");
-        this.txtTelClie.setText("");
-        this.txtMunClie.setText("");
-        this.txtDepClie.setText("");
-        this.txtNClie.setText("");
-        this.txtNumFact.setText("");
-        this.txtIdVenta.setText("");
+        if (this.txtNomClie.getText().isEmpty() ||this.txtIdVenta.getText().isEmpty() || this.txtNumFact.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campos Vacios");
+        }else{
+            if(this.rbnCreditoF.isSelected()){
+                ConexionDB fac=new ConexionDB();
+                String dia=Integer.toString(fecha2.getCalendar().get(Calendar.DAY_OF_MONTH+1));
+                String mes= Integer.toString(fecha2.getCalendar().get(Calendar.MONTH));
+                String year= Integer.toString(fecha2.getCalendar().get(Calendar.YEAR));
+                String fechaA=(dia+"-"+mes+"-"+year);
+                String date=fechaA;
+                fac.procedureFactura(this.IdCliente,date,Integer.parseInt(this.txtIdVenta.getText()),
+                    1,Integer.parseInt(this.txtNumFact.getText()),1);
+                this.txtNomClie.setText("");
+                this.txtApellidoClie.setText("");
+                this.txtDirecClie.setText("");
+                this.txtNitClie.setText("");
+                this.txtTelClie.setText("");
+                this.txtMunClie.setText("");
+                this.txtDepClie.setText("");
+                this.txtNClie.setText("");
+                this.txtNumFact.setText("");
+                this.txtIdVenta.setText("");
             
-        }else if(this.rbnTicket.isSelected()){
+            }else if(this.rbnTicket.isSelected()){
         
+            }else{
+                JOptionPane.showMessageDialog(null, "Debe Selecionar un tipo de Factura");
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

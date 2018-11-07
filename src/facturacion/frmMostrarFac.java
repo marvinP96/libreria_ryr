@@ -60,6 +60,9 @@ public class frmMostrarFac extends javax.swing.JFrame {
         txtCambiar = new javax.swing.JButton();
         txtNFact = new javax.swing.JTextField();
         btnBuscarFact = new javax.swing.JButton();
+        checkFact = new javax.swing.JCheckBox();
+        checkFactN = new javax.swing.JCheckBox();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,6 +93,23 @@ public class frmMostrarFac extends javax.swing.JFrame {
             }
         });
 
+        checkFact.setText("Facturas");
+        checkFact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkFactActionPerformed(evt);
+            }
+        });
+
+        checkFactN.setText("Facturas Nulas");
+        checkFactN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkFactNActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Facturas Credito Fiscal");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,22 +118,37 @@ public class frmMostrarFac extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 859, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(txtNFact, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscarFact)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtCambiar))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 859, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addGap(36, 36, 36)
+                        .addComponent(checkFact)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(checkFactN)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtCambiar)
+                                .addGap(19, 19, 19))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCambiar)
                     .addComponent(txtNFact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarFact))
+                    .addComponent(btnBuscarFact)
+                    .addComponent(checkFact)
+                    .addComponent(checkFactN))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -130,17 +165,23 @@ public class frmMostrarFac extends javax.swing.JFrame {
         int filaseleccionada =  this.jTable2.getSelectedRow();
         if(filaseleccionada<0){
           JOptionPane.showMessageDialog(null, "Debe Selecionar una Factura");
-         
         }else{
-             idFac=Integer.parseInt(this.jTable2.getValueAt(filaseleccionada, 0).toString());
-             nfac=Integer.parseInt(this.jTable2.getValueAt(filaseleccionada, 6).toString());
-             conf=JOptionPane.showConfirmDialog(this, "Desea Anular la Factura: "+nfac,"Advertencia",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
-             if(conf==JOptionPane.YES_OPTION){
-                 cn.UpdateEstadoFact(String.valueOf(idFac));
-                 FactFiscal(); 
-             }else if(conf==JOptionPane.NO_OPTION){
-                 FactFiscal();
-             }
+            int tf=0;
+            tf=Integer.parseInt(this.jTable2.getValueAt(filaseleccionada, 7).toString());
+            idFac=Integer.parseInt(this.jTable2.getValueAt(filaseleccionada, 0).toString());
+            nfac=Integer.parseInt(this.jTable2.getValueAt(filaseleccionada, 6).toString());
+            if(tf==0){
+               JOptionPane.showMessageDialog(null, "la Factura "+nfac+" ya esta anulada");
+            }else{
+                
+                conf=JOptionPane.showConfirmDialog(this, "Desea Anular la Factura: "+nfac,"Advertencia",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+                if(conf==JOptionPane.YES_OPTION){
+                    cn.UpdateEstadoFact(String.valueOf(idFac));
+                    FactFiscal(); 
+                }else if(conf==JOptionPane.NO_OPTION){
+                    FactFiscal();
+                }
+            }
         }
         
     }//GEN-LAST:event_txtCambiarActionPerformed
@@ -171,6 +212,60 @@ public class frmMostrarFac extends javax.swing.JFrame {
         }
         }
     }//GEN-LAST:event_btnBuscarFactActionPerformed
+
+    private void checkFactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkFactActionPerformed
+        // TODO add your handling code here:
+        this.checkFactN.setSelected(false);
+        if(this.checkFact.isSelected()){
+        ResultSet rs=cn.selectTipoFact(String.valueOf(1));
+        DefaultTableModel model1=new DefaultTableModel();
+         this.jTable2.setModel(model1);
+        model1.setColumnIdentifiers(new Object[]{"ID FACTURA","CLIENTE","APELLIDO",
+                "FECHA","ID VENTA","TIPO FACTURA","N° FACTURA","ESTADO_FACTURA"});
+        
+
+        try{
+            while(rs.next()){
+                model1.addRow(new Object[]{rs.getInt("ID_FACTURA"),rs.getString("NOMBRE_CLIE"),
+                    rs.getString("APELLIDO_CLIE"),rs.getString("fecha_fact"),rs.getInt("id_venta"),
+                    rs.getInt("tipo_fact"),rs.getInt("numero_fact"),
+                    rs.getInt("estado_fact")});
+        }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane,"No se encuentran datos");
+            FactFiscal(); 
+        }
+        }else{
+            FactFiscal();
+        }
+    }//GEN-LAST:event_checkFactActionPerformed
+
+    private void checkFactNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkFactNActionPerformed
+        // TODO add your handling code here:
+        this.checkFact.setSelected(false);
+        if(this.checkFactN.isSelected()){
+        ResultSet rs=cn.selectTipoFact(String.valueOf(0));
+        DefaultTableModel model1=new DefaultTableModel();
+         this.jTable2.setModel(model1);
+        model1.setColumnIdentifiers(new Object[]{"ID FACTURA","CLIENTE","APELLIDO",
+                "FECHA","ID VENTA","TIPO FACTURA","N° FACTURA","ESTADO_FACTURA"});
+        
+
+        try{
+            while(rs.next()){
+                model1.addRow(new Object[]{rs.getInt("ID_FACTURA"),rs.getString("NOMBRE_CLIE"),
+                    rs.getString("APELLIDO_CLIE"),rs.getString("fecha_fact"),rs.getInt("id_venta"),
+                    rs.getInt("tipo_fact"),rs.getInt("numero_fact"),
+                    rs.getInt("estado_fact")});
+        }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane,"No se encuentran datos");
+            FactFiscal(); 
+        }
+        }else{
+            FactFiscal();
+        }
+    }//GEN-LAST:event_checkFactNActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,6 +305,9 @@ public class frmMostrarFac extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarFact;
+    private javax.swing.JCheckBox checkFact;
+    private javax.swing.JCheckBox checkFactN;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
     private javax.swing.JButton txtCambiar;
