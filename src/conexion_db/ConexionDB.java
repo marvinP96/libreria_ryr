@@ -108,18 +108,21 @@ public class ConexionDB {
        }
        return resultado;
    }
-   
-   public String procedureAggProdaVenta(Integer idVenta,Integer idProd,Double PrecioU,Integer Cantidad)
+     //Modifique esto 7/11/2018
+   public String procedureAggProdaVenta(Integer idVenta,Integer idProd,Double PrecioU,Integer Cantidad,double total, double subtotal, double iva)
    {
        
        String resultado=null;
        try {            
            
-            CallableStatement proc = conn.prepareCall("{CALL Gventa(?,?,?,?,?)}");
+            CallableStatement proc = conn.prepareCall("{CALL Gventa(?,?,?,?,?,?,?,?)}");
             proc.setInt("ID_VENTA",idVenta );
             proc.setInt("ID_PRODUCTO",idProd );
             proc.setDouble("PRECIO_UNI_VENT",PrecioU );
             proc.setInt("CANTIDAD_VENTA",Cantidad );
+            proc.setDouble("TOTAL_VENT",total);
+            proc.setDouble("SUB_TOTAL",subtotal);
+            proc.setDouble("IVA_VENT",iva);
             proc.registerOutParameter("msj", java.sql.Types.VARCHAR);
             proc.executeQuery();            
             
@@ -132,20 +135,23 @@ public class ConexionDB {
    }
    
    
-   
-   public String[] procIniciarVenta(String fecha,Integer total,Integer id_empleado)
+   //Modifique esto 7/11/2018
+   public String[] procIniciarVenta(String fecha,double total,Integer id_empleado,double subtotal, double iva)
    {
        
        //String resultado=null;
        String[] retorno = new String[3];
        try {            
            
-            CallableStatement proc = conn.prepareCall("{CALL iniciarVenta(?,?,?,?,?)}");
+            CallableStatement proc = conn.prepareCall("{CALL iniciarVenta(?,?,?,?,?,?,?)}");
             proc.setString("FECHA_VENT",fecha );
-            proc.setInt("TOTAL_VENT",total );
+            proc.setDouble("TOTAL_VENT",total );
             proc.setInt("ID_EMPLEADO",id_empleado );
+            proc.setDouble("SUB_TOTAL",subtotal );
+            proc.setDouble("IVA_VENT",iva);
             proc.registerOutParameter("msj", java.sql.Types.VARCHAR);
             proc.registerOutParameter("ultimoIdV", java.sql.Types.VARCHAR);
+            
             proc.executeQuery();            
             
             //resultado = proc.getString("msj");
