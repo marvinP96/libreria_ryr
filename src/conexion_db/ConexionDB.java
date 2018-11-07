@@ -200,9 +200,22 @@ public class ConexionDB {
        try{
            PreparedStatement sql1=conn.prepareStatement("select id_factura,nombre_clie,APELLIDO_CLIE,fecha_fact,id_venta,"+
                                                         "tipo_fact,numero_fact,estado_fact from factura fc\n" +
-                                                        "join CLIENTE ct on ct.ID_CLIENTE=fc.ID_CLIENTE\n" +
-                                                        "where estado_fact=1");
+                                                        "join CLIENTE ct on ct.ID_CLIENTE=fc.ID_CLIENTE\n");
            //sql1.setString(1,_Nregistro);
+           rs=sql1.executeQuery();
+       }catch(Exception e){
+           
+       }
+       return rs;
+   }
+    public ResultSet selectTipoFact(String _TipoFact){
+       ResultSet rs=null;
+       try{
+           PreparedStatement sql1=conn.prepareStatement("select id_factura,nombre_clie,APELLIDO_CLIE,fecha_fact,id_venta,"+
+                                                        "tipo_fact,numero_fact,estado_fact from factura fc\n" +
+                                                        "join CLIENTE ct on ct.ID_CLIENTE=fc.ID_CLIENTE\n"+
+                                                         "where estado_fact=?");
+           sql1.setString(1,_TipoFact);
            rs=sql1.executeQuery();
        }catch(Exception e){
            
