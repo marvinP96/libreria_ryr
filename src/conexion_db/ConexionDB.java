@@ -38,7 +38,31 @@ public class ConexionDB {
     }
   
   
-    
+    public String procedureFactura(Integer idCliente,String fecha,Integer idVenta,Integer TipoFact,Integer NumFact,Integer EstadoFact)
+   {
+       
+       String resultado=null;
+       try {            
+           
+            CallableStatement proc = conn.prepareCall("{CALL GFactura(?,?,?,?,?,?,?)}");
+            proc.setInt("ID_CLIENTE", idCliente);
+            proc.setString("FECHA_FACT",fecha );
+            proc.setInt("ID_VENTA",idVenta );
+            proc.setInt("TIPO_FACT", TipoFact);
+            proc.setInt("NUMERO_FACT",NumFact );
+            proc.setInt("ESTADO_FACT", EstadoFact);
+            proc.registerOutParameter("msj", java.sql.Types.VARCHAR);
+            proc.executeQuery();            
+            
+            resultado = proc.getString("msj");
+            JOptionPane.showMessageDialog(null, resultado);
+        } 
+       catch (Exception e) {                  
+            JOptionPane.showMessageDialog(null, e);
+       }
+         return resultado;
+
+   }
     
    public String procedureVenta(String fecha,Integer total,Integer id_empleado)
    {
@@ -135,7 +159,7 @@ public class ConexionDB {
        return retorno;
    }
    
-   public ResultSet selectfact(String _idVenta){
+   public ResultSet selectventafact(String _idVenta){
        ResultSet rs=null;
        try{
            PreparedStatement sql=conn.prepareStatement("select dv.id_venta,pd.nombre_prod,dv.precio_uni_vent,dv.cantidad_venta from detalle_venta dv\n" +
@@ -160,6 +184,71 @@ public class ConexionDB {
        }
        return rs;
    }
+    public ResultSet selectallcliente(){
+       ResultSet rs=null;
+       try{
+           PreparedStatement sql1=conn.prepareStatement("select * from cliente");
+           //sql1.setString(1,_Nregistro);
+           rs=sql1.executeQuery();
+       }catch(Exception e){
+           
+       }
+       return rs;
+   }
+    public ResultSet selectFactFiscal(){
+       ResultSet rs=null;
+       try{
+           PreparedStatement sql1=conn.prepareStatement("select id_factura,nombre_clie,APELLIDO_CLIE,fecha_fact,id_venta,"+
+                                                        "tipo_fact,numero_fact,estado_fact from factura fc\n" +
+                                                        "join CLIENTE ct on ct.ID_CLIENTE=fc.ID_CLIENTE\n");
+           //sql1.setString(1,_Nregistro);
+           rs=sql1.executeQuery();
+       }catch(Exception e){
+           
+       }
+       return rs;
+   }
+    public ResultSet selectTipoFact(String _TipoFact){
+       ResultSet rs=null;
+       try{
+           PreparedStatement sql1=conn.prepareStatement("select id_factura,nombre_clie,APELLIDO_CLIE,fecha_fact,id_venta,"+
+                                                        "tipo_fact,numero_fact,estado_fact from factura fc\n" +
+                                                        "join CLIENTE ct on ct.ID_CLIENTE=fc.ID_CLIENTE\n"+
+                                                         "where estado_fact=?");
+           sql1.setString(1,_TipoFact);
+           rs=sql1.executeQuery();
+       }catch(Exception e){
+           
+       }
+       return rs;
+   }
+     public ResultSet selectFactFiscal1(String nFact){
+       ResultSet rs=null;
+       try{
+           PreparedStatement sql1=conn.prepareStatement("select id_factura,nombre_clie,APELLIDO_CLIE,fecha_fact,id_venta,"+
+                                                        "tipo_fact,numero_fact,estado_fact from factura fc\n" +
+                                                        "join CLIENTE ct on ct.ID_CLIENTE=fc.ID_CLIENTE\n" +
+                                                        "where estado_fact=1 and numero_fact=?");
+           sql1.setString(1,nFact);
+           rs=sql1.executeQuery();
+       }catch(Exception e){
+           
+       }
+       return rs;
+   }
+   public void UpdateEstadoFact(String _idfact){
+       ResultSet rs=null;
+       try{
+           PreparedStatement sql1=conn.prepareStatement("update factura set estado_fact=0 where id_factura=?");
+           sql1.setString(1,_idfact);
+           sql1.executeUpdate();
+           JOptionPane.showMessageDialog(null, "Factura Actualizada");
+       }catch(Exception e){
+           
+       }
+       
+   }
+    
    
    
    
