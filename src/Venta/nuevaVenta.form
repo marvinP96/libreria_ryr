@@ -132,9 +132,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Empleado:"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Empleado:"/>
-      </AccessibilityProperties>
     </Component>
   </SubComponents>
 </Form>

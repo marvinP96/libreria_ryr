@@ -139,14 +139,16 @@ public class nuevaVenta extends javax.swing.JFrame {
         List<Empleado>ListaEmpleado;
             ListaEmpleado= control_empleado.findEmpleadoEntities();
         int idemp=Integer.parseInt(ListaEmpleado.get(id).getIdEmpleado().toString());
-        int total=0;
+        double total=0.0;
+        double subtotal=0.0;
+        double iva=0.0;
         
         String dia=Integer.toString(fecha.getCalendar().get(Calendar.DAY_OF_MONTH));
         String mes= Integer.toString(fecha.getCalendar().get(Calendar.MONTH)+1);
         String year= Integer.toString(fecha.getCalendar().get(Calendar.YEAR));
         String fechaA=(dia+"/"+mes+"/"+year);
         String [] retorno = new String[3];
-        retorno=venta.procIniciarVenta(fechaA,total,idemp);
+        retorno=venta.procIniciarVenta(fechaA,total,idemp,subtotal,iva);
         
        // venta.procedureVenta(fechaA,total,idemp);
         JOptionPane.showMessageDialog(null,retorno[0]);
