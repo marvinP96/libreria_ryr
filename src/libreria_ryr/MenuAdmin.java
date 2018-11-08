@@ -10,14 +10,13 @@ import ingreso_datos.Agregar_empleados;
 import ingreso_datos.Agregar_proveedor;
 import ingreso_datos.Datos_cliente;
 import ingreso_datos.Ingresar_productos;
-import ingreso_datos.frmListar_cat;
 import ingreso_datos.frmListar_cli;
 import ingreso_datos.frmListar_emp;
 import ingreso_datos.frmListar_prov;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
 import static java.awt.SystemColor.menu;
-import ventas.Nventa;
+
 
 /**
  *
