@@ -412,7 +412,7 @@ public class frmFacturacion extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(txtNumFact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jButton1.setText("Generar Factura");
@@ -424,14 +424,17 @@ public class frmFacturacion extends javax.swing.JFrame {
 
         jLabel13.setText("Sub-Total");
 
+        txtSubTotal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtSubTotal.setEnabled(false);
 
         jLabel14.setText("IVA");
 
+        txtIva.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtIva.setEnabled(false);
 
         jLabel15.setText("Total");
 
+        txtTotal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtTotal.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -527,6 +530,8 @@ public class frmFacturacion extends javax.swing.JFrame {
         String idventa=this.txtIdVenta.getText().toString();
         ConexionDB cn=new ConexionDB();
         ResultSet rs=cn.selectventafact(idventa);
+        ResultSet rs1=cn.selectVenta(idventa);
+
         DefaultTableModel model=new DefaultTableModel();
         this.jTable1.setModel(model);
         model.setColumnIdentifiers(new Object[]{"ID_VENTA","NOM_PROD","PRECIO_UNI","CANTIDAD"});
@@ -537,6 +542,16 @@ public class frmFacturacion extends javax.swing.JFrame {
         }catch(Exception e){
             
         }
+        try{
+            while(rs1.next()){
+                this.txtSubTotal.setText(String.valueOf(rs1.getDouble("SUB_TOTAL")));
+                this.txtIva.setText(String.valueOf(rs1.getDouble("IVA_VENT")));
+                this.txtTotal.setText(String.valueOf(rs1.getDouble("TOTAL_VENT")));
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
     }//GEN-LAST:event_btnBuscarVenActionPerformed
 
     private void btnBClieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBClieActionPerformed
