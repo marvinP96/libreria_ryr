@@ -233,12 +233,12 @@ public class ConexionDB {
        }
        
    }
-   public void UpdateCat(String _idfact,String _nomcat){
+   public void UpdateCat(String _idCat,String _nomcat){
        ResultSet rs=null;
        try{
            PreparedStatement sql1=conn.prepareStatement("update cat_producto set nombre_cat_prod=? where id_cat_producto=?");
            sql1.setString(1,_nomcat);
-           sql1.setString(2,_idfact);
+           sql1.setString(2,_idCat);
            sql1.executeUpdate();
            JOptionPane.showMessageDialog(null, "Categoria Actualizada");
        }catch(Exception e){
@@ -246,7 +246,7 @@ public class ConexionDB {
        }
        
    }
-    public ResultSet selectAllCat(){
+   public ResultSet selectAllCat(){
        ResultSet rs=null;
        try{
            PreparedStatement sql1=conn.prepareStatement("select * from cat_producto");
@@ -257,6 +257,85 @@ public class ConexionDB {
        }
        return rs;
    }
+   public void UpdateEmp(String _idEmp,String _nomEmp,String _apeEmp,String _dirEmp,String _telEmp){
+       ResultSet rs=null;
+       try{
+           PreparedStatement sql1=conn.prepareStatement("update empleado set nombre_emp=?, apellido_emp=?, direccion_emp=?,"
+                                                        + "telefono_emp=? where id_empleado=?");
+           sql1.setString(1,_nomEmp);
+           sql1.setString(2,_apeEmp);
+           sql1.setString(3,_dirEmp);
+           sql1.setString(4,_telEmp);
+           sql1.setString(5,_idEmp);
+           sql1.executeUpdate();
+           JOptionPane.showMessageDialog(null, "Empleado Actualizado");
+       }catch(Exception e){
+           
+       }
+       
+   }
+    public ResultSet selectAllEmp(){
+       ResultSet rs=null;
+       try{
+           PreparedStatement sql1=conn.prepareStatement("select * from empleado");
+           //sql1.setString(1,_Nregistro);
+           rs=sql1.executeQuery();
+       }catch(Exception e){
+           
+       }
+       return rs;
+   }
+    public void UpdateProv(String _idProv,String _nomProv,String _dirProv,String _telProv){
+       ResultSet rs=null;
+       try{
+           PreparedStatement sql1=conn.prepareStatement("update proveedor set nombre_prov=?, direccion_prov=?,"
+                                                        + "telefono_prov=? where id_proveedor=?");
+           sql1.setString(1,_nomProv);
+           sql1.setString(2,_dirProv);
+           sql1.setString(3,_telProv);
+           sql1.setString(4,_idProv);
+           sql1.executeUpdate();
+           JOptionPane.showMessageDialog(null, "Proveedor Actualizado");
+       }catch(Exception e){
+           
+       }
+       
+   }
+    public ResultSet selectAllProv(){
+       ResultSet rs=null;
+       try{
+           PreparedStatement sql1=conn.prepareStatement("select * from proveedor");
+           //sql1.setString(1,_Nregistro);
+           rs=sql1.executeQuery();
+       }catch(Exception e){
+           
+       }
+       return rs;
+   }
+    public void UpdateClie(String _idClie,String _nomClie,String _apeClie,String _dirClie,
+                            String _nitClie,String _telClie,String _munClie,String _depClie,String _nrClie){
+       ResultSet rs=null;
+       try{
+           PreparedStatement sql1=conn.prepareStatement("update cliente set nombre_clie=?,apellido_clie=?,direccion_clie=?,"
+                                                        + "nit_clie=?,telefono_clie=?,municipio_clie=?,departamento_clie=?,"
+                                                        + "n_registro_clie=? where id_cliente=?");
+           sql1.setString(1,_nomClie);
+           sql1.setString(2,_apeClie);
+           sql1.setString(3,_dirClie);
+           sql1.setString(4,_nitClie);
+           sql1.setString(5,_telClie);
+           sql1.setString(6,_munClie);
+           sql1.setString(7,_depClie);
+           sql1.setString(8,_nrClie);
+           sql1.setString(9,_idClie);
+           sql1.executeUpdate();
+           JOptionPane.showMessageDialog(null, "Cliente Actualizado");
+       }catch(Exception e){
+           
+       }
+       
+   }
+   
     
    
    
