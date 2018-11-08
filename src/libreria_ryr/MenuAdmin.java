@@ -286,8 +286,7 @@ public class MenuAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        frmListar_cat lisCat= new frmListar_cat();
-        lisCat.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -310,8 +309,7 @@ public class MenuAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-       Nventa Gventa=new Nventa();
-       Gventa.setVisible(true);
+      
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
