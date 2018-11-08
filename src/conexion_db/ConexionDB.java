@@ -180,6 +180,17 @@ public class ConexionDB {
        }
        return rs;
    }
+     public ResultSet selectVenta(String _idVent){
+       ResultSet rs1=null;
+       try{
+           PreparedStatement sql1=conn.prepareStatement("SELECT TOTAL_VENT,IVA_VENT,SUB_TOTAL FROM VENTA WHERE ID_VENTA=?");
+           sql1.setString(1,_idVent);
+           rs1=sql1.executeQuery();
+       }catch(Exception e){
+           
+       }
+       return rs1;
+   }
     public ResultSet selectFactFiscal(){
        ResultSet rs=null;
        try{
@@ -334,6 +345,21 @@ public class ConexionDB {
            
        }
        
+   }
+    
+   public ResultSet selectAllProd(){
+       ResultSet rs=null;
+       try{
+           PreparedStatement sql1=conn.prepareStatement("select ID_PRODUCTO,NOMBRE_PROD,FECHA_INGRESO_PROD,PRECIO_PROD,"
+                                                        +"EXISTENCIA_PROD,NOMBRE_PROV,NOMBRE_CAT_PROD from PRODUCTO PD\n" 
+                                                        +"JOIN CAT_PRODUCTO PR ON PR.ID_CAT_PRODUCTO=PD.ID_CAT_PRODUCTO\n" 
+                                                        +"JOIN PROVEEDOR PV ON PV.ID_PROVEEDOR=PD.ID_PROVEEDOR");
+           //sql1.setString(1,_Nregistro);
+           rs=sql1.executeQuery();
+       }catch(Exception e){
+           
+       }
+       return rs;
    }
    
     
