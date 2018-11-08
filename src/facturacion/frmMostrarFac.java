@@ -25,6 +25,7 @@ public class frmMostrarFac extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         FactFiscal();   
     }
+    
      public void FactFiscal(){
         
         ResultSet rs=cn.selectFactFiscal();
@@ -60,11 +61,16 @@ public class frmMostrarFac extends javax.swing.JFrame {
         txtCambiar = new javax.swing.JButton();
         txtNFact = new javax.swing.JTextField();
         btnBuscarFact = new javax.swing.JButton();
-        checkFact = new javax.swing.JCheckBox();
-        checkFactN = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        checkEmitidas = new javax.swing.JCheckBox();
+        checkFactN = new javax.swing.JCheckBox();
+        jPanel2 = new javax.swing.JPanel();
+        checkCFiscal = new javax.swing.JCheckBox();
+        checkCFinal = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -93,22 +99,81 @@ public class frmMostrarFac extends javax.swing.JFrame {
             }
         });
 
-        checkFact.setText("Facturas");
-        checkFact.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Listado de Facturas");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Estado Factura"));
+
+        checkEmitidas.setText("Emitidas");
+        checkEmitidas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkFactActionPerformed(evt);
+                checkEmitidasActionPerformed(evt);
             }
         });
 
-        checkFactN.setText("Facturas Nulas");
+        checkFactN.setText("Nulas");
         checkFactN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkFactNActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Facturas Credito Fiscal");
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(checkEmitidas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(checkFactN)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkEmitidas)
+                    .addComponent(checkFactN))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Tipo Factura"));
+
+        checkCFiscal.setText("Credito Fiscal");
+        checkCFiscal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkCFiscalActionPerformed(evt);
+            }
+        });
+
+        checkCFinal.setText("Consumidor Final");
+        checkCFinal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkCFinalActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(checkCFiscal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(checkCFinal)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkCFiscal)
+                    .addComponent(checkCFinal))
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,37 +183,41 @@ public class frmMostrarFac extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 859, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtNFact, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscarFact)
-                        .addGap(36, 36, 36)
-                        .addComponent(checkFact)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCambiar)
+                        .addGap(19, 19, 19))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(checkFactN)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtCambiar)
-                                .addGap(19, 19, 19))))))
+                                .addGap(176, 176, 176)
+                                .addComponent(jLabel1)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCambiar)
                     .addComponent(txtNFact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarFact)
-                    .addComponent(checkFact)
-                    .addComponent(checkFactN))
+                    .addComponent(btnBuscarFact))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -213,10 +282,10 @@ public class frmMostrarFac extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscarFactActionPerformed
 
-    private void checkFactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkFactActionPerformed
+    private void checkEmitidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkEmitidasActionPerformed
         // TODO add your handling code here:
         this.checkFactN.setSelected(false);
-        if(this.checkFact.isSelected()){
+        if(this.checkEmitidas.isSelected()){
         ResultSet rs=cn.selectTipoFact(String.valueOf(1));
         DefaultTableModel model1=new DefaultTableModel();
          this.jTable2.setModel(model1);
@@ -238,11 +307,11 @@ public class frmMostrarFac extends javax.swing.JFrame {
         }else{
             FactFiscal();
         }
-    }//GEN-LAST:event_checkFactActionPerformed
+    }//GEN-LAST:event_checkEmitidasActionPerformed
 
     private void checkFactNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkFactNActionPerformed
         // TODO add your handling code here:
-        this.checkFact.setSelected(false);
+        this.checkEmitidas.setSelected(false);
         if(this.checkFactN.isSelected()){
         ResultSet rs=cn.selectTipoFact(String.valueOf(0));
         DefaultTableModel model1=new DefaultTableModel();
@@ -266,6 +335,14 @@ public class frmMostrarFac extends javax.swing.JFrame {
             FactFiscal();
         }
     }//GEN-LAST:event_checkFactNActionPerformed
+
+    private void checkCFiscalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCFiscalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkCFiscalActionPerformed
+
+    private void checkCFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCFinalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkCFinalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -305,9 +382,13 @@ public class frmMostrarFac extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarFact;
-    private javax.swing.JCheckBox checkFact;
+    private javax.swing.JCheckBox checkCFinal;
+    private javax.swing.JCheckBox checkCFiscal;
+    private javax.swing.JCheckBox checkEmitidas;
     private javax.swing.JCheckBox checkFactN;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
     private javax.swing.JButton txtCambiar;
