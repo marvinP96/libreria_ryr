@@ -63,27 +63,6 @@ public class ConexionDB {
          return resultado;
 
    }
-    
-   public String procedureVenta(String fecha,Integer total,Integer id_empleado)
-   {
-       
-       String resultado=null;
-       try {            
-           
-            CallableStatement proc = conn.prepareCall("{CALL ventapro(?,?,?,?)}");
-            proc.setString("FECHA_VENT",fecha );
-            proc.setInt("TOTAL_VENT",total );
-            proc.setInt("ID_EMPLEADO",id_empleado );
-            proc.registerOutParameter("msj", java.sql.Types.VARCHAR);
-            proc.executeQuery();            
-            
-            resultado = proc.getString("msj");
-        } 
-       catch (Exception e) {                  
-            JOptionPane.showMessageDialog(null, e);
-       }
-       return resultado;
-   }
    
    public String procedureAggProd(String nombre,String fecha,Double precio,Integer existencia,Integer idProv,Integer idCat)
    {
@@ -254,8 +233,31 @@ public class ConexionDB {
        }
        
    }
+   public void UpdateCat(String _idfact,String _nomcat){
+       ResultSet rs=null;
+       try{
+           PreparedStatement sql1=conn.prepareStatement("update cat_producto set nombre_cat_prod=? where id_cat_producto=?");
+           sql1.setString(1,_nomcat);
+           sql1.setString(2,_idfact);
+           sql1.executeUpdate();
+           JOptionPane.showMessageDialog(null, "Categoria Actualizada");
+       }catch(Exception e){
+           
+       }
+       
+   }
+    public ResultSet selectAllCat(){
+       ResultSet rs=null;
+       try{
+           PreparedStatement sql1=conn.prepareStatement("select * from cat_producto");
+           //sql1.setString(1,_Nregistro);
+           rs=sql1.executeQuery();
+       }catch(Exception e){
+           
+       }
+       return rs;
+   }
     
-   
    
    
    
