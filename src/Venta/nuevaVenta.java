@@ -13,8 +13,7 @@ import java.util.Calendar;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import static ventas.Nventa.fecha;
-import ventas.Ventas_P;
+
 
 /**
  *
