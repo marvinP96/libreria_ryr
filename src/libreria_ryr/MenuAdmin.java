@@ -10,9 +10,8 @@ import ingreso_datos.Agregar_empleados;
 import ingreso_datos.Agregar_proveedor;
 import ingreso_datos.Datos_cliente;
 import ingreso_datos.Ingresar_productos;
-import ingreso_datos.frmListar_cli;
-import ingreso_datos.frmListar_emp;
-import ingreso_datos.frmListar_prov;
+
+
 import java.awt.Color;
 import java.awt.ComponentOrientation;
 import static java.awt.SystemColor.menu;
@@ -290,8 +289,7 @@ public class MenuAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        frmListar_prov lisProv=new frmListar_prov();
-        lisProv.setVisible(true);
+       
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
@@ -299,13 +297,11 @@ public class MenuAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        frmListar_emp lisEmp=new frmListar_emp();
-        lisEmp.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-        frmListar_cli lisClie=new frmListar_cli();
-        lisClie.setVisible(true);
+      
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
