@@ -5,6 +5,7 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="idventa" class="java.lang.String"/>
 	<parameter name="tip" class="java.lang.String"/>
+	<parameter name="logo" class="java.io.InputStream"/>
 	<queryString>
 		<![CDATA[SELECT
      PRODUCTO."NOMBRE_PROD" AS PRODUCTO_NOMBRE_PROD,
@@ -52,7 +53,7 @@ WHERE VENTA."ID_VENTA" = $P{idventa}]]>
 		<band height="82" splitType="Stretch">
 			<image hAlign="Center">
 				<reportElement x="0" y="0" width="554" height="82" uuid="eb9d2aeb-af36-4b69-8a08-3707d1c95db2"/>
-				<imageExpression><![CDATA["C:\\Users\\marvin1\\Desktop\\libreria\\libreria_ryr\\src\\icons\\logo-negro.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 		</band>
 	</title>

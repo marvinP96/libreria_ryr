@@ -680,10 +680,12 @@ public class frmFacturacion extends javax.swing.JFrame {
                  
        
         try {
+           String rutl="/icons/logo.png";
             String rutaReporte=System.getProperty("user.dir")+"/reporte_ventas.jasper";
             Map<String,Object> parameters = new HashMap<String,Object>();
             parameters.put("idventa",new String(id));
-              parameters.put("tip",new String("CREDITO FISCAL"));
+             parameters.put("tip",new String("CREDITO FISCAL"));
+              parameters.put("logo",this.getClass().getResourceAsStream(rutl));
 
             JasperReport jasperReport=(JasperReport)JRLoader.loadObjectFromFile(rutaReporte);
             JasperPrint print = JasperFillManager.fillReport(jasperReport,parameters,n );
@@ -717,10 +719,12 @@ public class frmFacturacion extends javax.swing.JFrame {
                  
        
         try {
+               String rutl="/icons/logo.png";
             String rutaReporte=System.getProperty("user.dir")+"/reporte_ventas.jasper";
             Map<String,Object> parameters = new HashMap<String,Object>();
             parameters.put("idventa",new String(id));
               parameters.put("tip",new String("CONSUMIDOR FINAL"));
+               parameters.put("logo",this.getClass().getResourceAsStream(rutl));
 
             JasperReport jasperReport=(JasperReport)JRLoader.loadObjectFromFile(rutaReporte);
             JasperPrint print = JasperFillManager.fillReport(jasperReport,parameters,n );
