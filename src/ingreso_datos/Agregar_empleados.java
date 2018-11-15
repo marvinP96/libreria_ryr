@@ -311,6 +311,7 @@ public class Agregar_empleados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEmpActionPerformed
+if (this.txtNombreEmp.getText().equals(null)||this.txtApellidoEmp.getText().equals(null)|| this.txtDireccionEmp.getText().equals(null) || this.txtTelEmp.getText().equals(null)){
         String nombreEmp=this.txtNombreEmp.getText();
         String apellidoEmp=this.txtApellidoEmp.getText();
         String  direccionEmp=this.txtDireccionEmp.getText();
@@ -334,7 +335,7 @@ public class Agregar_empleados extends javax.swing.JFrame {
         catch(Exception e)
         {
             JOptionPane.showMessageDialog(null,"Error"+e.toString());
-        }
+        }}else{JOptionPane.showMessageDialog(null,"llene los campos vasios");}
     }//GEN-LAST:event_btnGuardarEmpActionPerformed
 
     private void btnEditarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarEmpActionPerformed

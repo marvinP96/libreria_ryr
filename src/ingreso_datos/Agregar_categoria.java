@@ -245,7 +245,8 @@ public class Agregar_categoria extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAggCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAggCatActionPerformed
-        String nomCat = this.txtNomCat.getText();
+       if (this.txtNomCat.getText().equals(null)){
+               String nomCat = this.txtNomCat.getText();
         
         CatProductoJpaController t= new CatProductoJpaController(entityMain.getInstance());
         CatProducto cat= new CatProducto();
@@ -262,7 +263,7 @@ public class Agregar_categoria extends javax.swing.JFrame {
         catch(Exception e)
         {
             JOptionPane.showMessageDialog(null,"Error"+e.toString());
-        }
+        }}else{JOptionPane.showMessageDialog(null,"llene los campos vasios");}
     }//GEN-LAST:event_btnAggCatActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

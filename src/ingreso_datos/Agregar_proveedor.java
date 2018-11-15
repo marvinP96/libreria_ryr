@@ -273,6 +273,7 @@ public class Agregar_proveedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAggProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAggProvActionPerformed
+        if(txtNombreProv.getText().equals(null)||txtDireccionProv.getText().equals(null)||txtTelProv.getText().equals(null)){
         String nombreProv=this.txtNombreProv.getText();
         String  direccionProv=this.txtDireccionProv.getText();
         String  telProv=this.txtTelProv.getText();
@@ -297,6 +298,7 @@ public class Agregar_proveedor extends javax.swing.JFrame {
         this.txtNombreProv.setText("");
         this.txtDireccionProv.setText("");
         this.txtDireccionProv.setText("");
+        }else{JOptionPane.showMessageDialog(null,"llene los campos vasios");}
     }//GEN-LAST:event_btnAggProvActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

@@ -555,6 +555,16 @@ public class Datos_cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNregistroClieActionPerformed
 
     private void btnAggClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAggClienteActionPerformed
+     if( this.txtNomClie.getText().equals(null)||this.txtApellidoCli.getText().equals(null)||this.txtDireccionClie.getText().equals(null)
+      ||this.txtNregistroClie.getText().equals(null)||
+      this.txtNitClie.getText().equals(null)||
+      this.txtTelefonoClie.getText().equals(null)||
+      this.txtMunucipioClie.getText().equals(null)||
+      this.txtDepartamentoClie.getText().equals(null)){
+        //int NRclie=Integer.parseInt(this.txtNregistroClie.getText());
+                 //int Nit=Integer.parseInt(this.txtNitClie.getText());
+       
+        
         String nombreClie=this.txtNomClie.getText();
         String apellidoClie=this.txtApellidoCli.getText();
         String  direccionClie=this.txtDireccionClie.getText();
@@ -588,7 +598,7 @@ public class Datos_cliente extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(null,"Error"+e.toString());
         }
-        
+    } else{JOptionPane.showMessageDialog(null,"llene los campos vasios");}
     }//GEN-LAST:event_btnAggClienteActionPerformed
 
     private void txtnApellidoClieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnApellidoClieActionPerformed
