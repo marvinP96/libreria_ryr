@@ -221,7 +221,7 @@ public class MenuAdm extends javax.swing.JFrame {
         jMenu8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu8.setForeground(new java.awt.Color(255, 255, 255));
         jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/folder.png"))); // NOI18N
-        jMenu8.setText("Cerrar Sesión");
+        jMenu8.setText("Reporte");
         jMenu8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         jmiGenerarRep.setText("Generar Reporte");
