@@ -5,11 +5,20 @@
  */
 package Menu;
 
+import Venta.nuevaVenta;
+import facturacion.frmFacturacion;
+import facturacion.frmMostrarFac;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JComponent;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicMenuBarUI;
+import login.Login;
+import net.sf.jasperreports.web.actions.AbstractAction;
+import net.sf.jasperreports.web.actions.ActionException;
 
 /**
  *
@@ -23,12 +32,20 @@ public class MenuAdm extends javax.swing.JFrame {
     public MenuAdm() {
         initComponents();
         menuBarAdmin.setUI ( new BasicMenuBarUI (){
-    public void paint ( Graphics g, JComponent c ){
-       g.setColor (Color.decode("#0099cc"));
-       g.fillRect ( 0, 0, c.getWidth (), c.getHeight () );
+                public void paint ( Graphics g, JComponent c ){
+                   g.setColor (Color.decode("#0099cc"));
+                   g.fillRect ( 0, 0, c.getWidth (), c.getHeight () );
+                }
+                 } );
+        
+        this.setLocationRelativeTo(null);
+       
+        
     }
-     } );
-    }
+    
+    
+   
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,10 +63,10 @@ public class MenuAdm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         menuBarAdmin = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jmiCrearVenta = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jmiGenerarFactura = new javax.swing.JMenuItem();
+        jmiListarFacturas = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
@@ -59,8 +76,12 @@ public class MenuAdm extends javax.swing.JFrame {
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
-        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
+        jMenuItem14 = new javax.swing.JMenuItem();
+        mnCerrarSesion = new javax.swing.JMenu();
+        jmiCerrarSesion = new javax.swing.JMenuItem();
+        opcSalir = new javax.swing.JMenu();
+        jmiSalir = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -84,13 +105,13 @@ public class MenuAdm extends javax.swing.JFrame {
         jMenu1.setText("Venta");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        jMenuItem1.setText("Crear Venta");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jmiCrearVenta.setText("Crear Venta");
+        jmiCrearVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jmiCrearVentaActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(jmiCrearVenta);
 
         menuBarAdmin.add(jMenu1);
 
@@ -101,17 +122,27 @@ public class MenuAdm extends javax.swing.JFrame {
         jMenu2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jMenu2.setMargin(new java.awt.Insets(75, 75, 75, 75));
 
-        jMenuItem4.setText("Generar Factura");
-        jMenu2.add(jMenuItem4);
+        jmiGenerarFactura.setText("Generar Factura");
+        jmiGenerarFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiGenerarFacturaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmiGenerarFactura);
 
-        jMenuItem5.setText("Listar Facturas");
-        jMenu2.add(jMenuItem5);
+        jmiListarFacturas.setText("Listar Facturas");
+        jmiListarFacturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiListarFacturasActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmiListarFacturas);
 
         menuBarAdmin.add(jMenu2);
 
         jMenu3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu3.setForeground(new java.awt.Color(255, 255, 255));
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/truck.png"))); // NOI18N
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/shopping-cart.png"))); // NOI18N
         jMenu3.setText("Productos");
         jMenu3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
@@ -156,14 +187,48 @@ public class MenuAdm extends javax.swing.JFrame {
 
         menuBarAdmin.add(jMenu5);
 
-        jMenu7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jMenu7.setText("Reporte");
-        jMenu7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jMenu8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jMenu8.setForeground(new java.awt.Color(255, 255, 255));
+        jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/folder.png"))); // NOI18N
+        jMenu8.setText("Cerrar Sesión");
+        jMenu8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        jMenuItem13.setText("Generar Reporte");
-        jMenu7.add(jMenuItem13);
+        jMenuItem14.setText("Generar Reporte");
+        jMenu8.add(jMenuItem14);
 
-        menuBarAdmin.add(jMenu7);
+        menuBarAdmin.add(jMenu8);
+
+        mnCerrarSesion.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        mnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        mnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/sign-out.png"))); // NOI18N
+        mnCerrarSesion.setText("Cerrar Sesión");
+        mnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+
+        jmiCerrarSesion.setText("Cerrar Sesión");
+        jmiCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCerrarSesionActionPerformed(evt);
+            }
+        });
+        mnCerrarSesion.add(jmiCerrarSesion);
+
+        menuBarAdmin.add(mnCerrarSesion);
+
+        opcSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        opcSalir.setForeground(new java.awt.Color(255, 255, 255));
+        opcSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/window-close.png"))); // NOI18N
+        opcSalir.setText("Salir");
+        opcSalir.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+
+        jmiSalir.setText("Salir");
+        jmiSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiSalirActionPerformed(evt);
+            }
+        });
+        opcSalir.add(jmiSalir);
+
+        menuBarAdmin.add(opcSalir);
 
         setJMenuBar(menuBarAdmin);
 
@@ -181,11 +246,38 @@ public class MenuAdm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jmiCrearVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCrearVentaActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null,"Prueba");
+        nuevaVenta frm = new nuevaVenta();
+        frm.setVisible(true);
         
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jmiCrearVentaActionPerformed
+
+    private void jmiSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSalirActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jmiSalirActionPerformed
+
+    private void jmiCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCerrarSesionActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Login frm = new Login();
+        frm.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jmiCerrarSesionActionPerformed
+
+    private void jmiGenerarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGenerarFacturaActionPerformed
+        // TODO add your handling code here:
+        frmFacturacion frm = new  frmFacturacion();
+        frm.setVisible(true);
+    }//GEN-LAST:event_jmiGenerarFacturaActionPerformed
+
+    private void jmiListarFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListarFacturasActionPerformed
+        // TODO add your handling code here:
+        frmMostrarFac frm = new  frmMostrarFac();
+        frm.setVisible(true);
+    }//GEN-LAST:event_jmiListarFacturasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,20 +322,24 @@ public class MenuAdm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem jmiCerrarSesion;
+    private javax.swing.JMenuItem jmiCrearVenta;
+    private javax.swing.JMenuItem jmiGenerarFactura;
+    private javax.swing.JMenuItem jmiListarFacturas;
+    private javax.swing.JMenuItem jmiSalir;
     private javax.swing.JMenuBar menuBarAdmin;
+    private javax.swing.JMenu mnCerrarSesion;
+    private javax.swing.JMenu opcSalir;
     // End of variables declaration//GEN-END:variables
 }
