@@ -8,6 +8,11 @@ package Menu;
 import Venta.nuevaVenta;
 import facturacion.frmFacturacion;
 import facturacion.frmMostrarFac;
+import ingreso_datos.Agregar_categoria;
+import ingreso_datos.Agregar_empleados;
+import ingreso_datos.Agregar_proveedor;
+import ingreso_datos.Datos_cliente;
+import ingreso_datos.Ingresar_productos;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -19,6 +24,7 @@ import javax.swing.plaf.basic.BasicMenuBarUI;
 import login.Login;
 import net.sf.jasperreports.web.actions.AbstractAction;
 import net.sf.jasperreports.web.actions.ActionException;
+import reporte.reporte_fecha;
 
 /**
  *
@@ -68,16 +74,16 @@ public class MenuAdm extends javax.swing.JFrame {
         jmiGenerarFactura = new javax.swing.JMenuItem();
         jmiListarFacturas = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        jmiRegistrarProd = new javax.swing.JMenuItem();
+        jmiRegistrarCat = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem10 = new javax.swing.JMenuItem();
+        jmiRegistrarEmp = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
-        jMenuItem12 = new javax.swing.JMenuItem();
+        jmiRegistrarProv = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
-        jMenuItem11 = new javax.swing.JMenuItem();
+        jmiRegistrarCli = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
-        jMenuItem14 = new javax.swing.JMenuItem();
+        jmiGenerarRep = new javax.swing.JMenuItem();
         mnCerrarSesion = new javax.swing.JMenu();
         jmiCerrarSesion = new javax.swing.JMenuItem();
         opcSalir = new javax.swing.JMenu();
@@ -146,11 +152,21 @@ public class MenuAdm extends javax.swing.JFrame {
         jMenu3.setText("Productos");
         jMenu3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        jMenuItem8.setText("Registrar Producto");
-        jMenu3.add(jMenuItem8);
+        jmiRegistrarProd.setText("Registrar Producto");
+        jmiRegistrarProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRegistrarProdActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmiRegistrarProd);
 
-        jMenuItem9.setText("Registrar Categoría");
-        jMenu3.add(jMenuItem9);
+        jmiRegistrarCat.setText("Registrar Categoría");
+        jmiRegistrarCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRegistrarCatActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmiRegistrarCat);
 
         menuBarAdmin.add(jMenu3);
 
@@ -160,8 +176,13 @@ public class MenuAdm extends javax.swing.JFrame {
         jMenu4.setText("Empleado");
         jMenu4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        jMenuItem10.setText("Registrar Empleado");
-        jMenu4.add(jMenuItem10);
+        jmiRegistrarEmp.setText("Registrar Empleado");
+        jmiRegistrarEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRegistrarEmpActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jmiRegistrarEmp);
 
         menuBarAdmin.add(jMenu4);
 
@@ -171,8 +192,13 @@ public class MenuAdm extends javax.swing.JFrame {
         jMenu6.setText("Proveedor");
         jMenu6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        jMenuItem12.setText("Registrar Proveedor");
-        jMenu6.add(jMenuItem12);
+        jmiRegistrarProv.setText("Registrar Proveedor");
+        jmiRegistrarProv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRegistrarProvActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jmiRegistrarProv);
 
         menuBarAdmin.add(jMenu6);
 
@@ -182,8 +208,13 @@ public class MenuAdm extends javax.swing.JFrame {
         jMenu5.setText("Cliente");
         jMenu5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        jMenuItem11.setText("Registrar Cliente");
-        jMenu5.add(jMenuItem11);
+        jmiRegistrarCli.setText("Registrar Cliente");
+        jmiRegistrarCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRegistrarCliActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jmiRegistrarCli);
 
         menuBarAdmin.add(jMenu5);
 
@@ -193,8 +224,13 @@ public class MenuAdm extends javax.swing.JFrame {
         jMenu8.setText("Cerrar Sesión");
         jMenu8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        jMenuItem14.setText("Generar Reporte");
-        jMenu8.add(jMenuItem14);
+        jmiGenerarRep.setText("Generar Reporte");
+        jmiGenerarRep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiGenerarRepActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jmiGenerarRep);
 
         menuBarAdmin.add(jMenu8);
 
@@ -279,6 +315,42 @@ public class MenuAdm extends javax.swing.JFrame {
         frm.setVisible(true);
     }//GEN-LAST:event_jmiListarFacturasActionPerformed
 
+    private void jmiRegistrarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRegistrarProdActionPerformed
+        // TODO add your handling code here:
+        Ingresar_productos frm = new  Ingresar_productos();
+        frm.setVisible(true);
+    }//GEN-LAST:event_jmiRegistrarProdActionPerformed
+
+    private void jmiRegistrarCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRegistrarCatActionPerformed
+        // TODO add your handling code here:
+        Agregar_categoria frm = new  Agregar_categoria();
+        frm.setVisible(true);
+    }//GEN-LAST:event_jmiRegistrarCatActionPerformed
+
+    private void jmiRegistrarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRegistrarEmpActionPerformed
+        // TODO add your handling code here:
+        Agregar_empleados frm = new  Agregar_empleados();
+        frm.setVisible(true);
+    }//GEN-LAST:event_jmiRegistrarEmpActionPerformed
+
+    private void jmiRegistrarProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRegistrarProvActionPerformed
+        // TODO add your handling code here:
+        Agregar_proveedor frm = new  Agregar_proveedor();
+        frm.setVisible(true);
+    }//GEN-LAST:event_jmiRegistrarProvActionPerformed
+
+    private void jmiRegistrarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRegistrarCliActionPerformed
+        // TODO add your handling code here:
+        Datos_cliente frm = new  Datos_cliente();
+        frm.setVisible(true);
+    }//GEN-LAST:event_jmiRegistrarCliActionPerformed
+
+    private void jmiGenerarRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGenerarRepActionPerformed
+        // TODO add your handling code here:
+        reporte_fecha frm = new  reporte_fecha();
+        frm.setVisible(true);
+    }//GEN-LAST:event_jmiGenerarRepActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -323,20 +395,20 @@ public class MenuAdm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu8;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem jmiCerrarSesion;
     private javax.swing.JMenuItem jmiCrearVenta;
     private javax.swing.JMenuItem jmiGenerarFactura;
+    private javax.swing.JMenuItem jmiGenerarRep;
     private javax.swing.JMenuItem jmiListarFacturas;
+    private javax.swing.JMenuItem jmiRegistrarCat;
+    private javax.swing.JMenuItem jmiRegistrarCli;
+    private javax.swing.JMenuItem jmiRegistrarEmp;
+    private javax.swing.JMenuItem jmiRegistrarProd;
+    private javax.swing.JMenuItem jmiRegistrarProv;
     private javax.swing.JMenuItem jmiSalir;
     private javax.swing.JMenuBar menuBarAdmin;
     private javax.swing.JMenu mnCerrarSesion;
