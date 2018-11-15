@@ -113,10 +113,6 @@ WHERE  FACTURA."FECHA_FACT" >= $P{FECHA1} AND FACTURA."FECHA_FACT" <= $P{FECHA2}
 				<textFieldExpression><![CDATA[$F{EMPLEADO_NOMBRE_EMP}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="0" width="100" height="20" uuid="57ab96e1-cf23-428f-862e-7b27f788815c"/>
-				<textFieldExpression><![CDATA[$F{VENTA_TOTAL_VENT}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="118" y="0" width="100" height="20" uuid="4f6aa0a4-67d1-4db1-ad7c-d11e014563d9"/>
 				<textFieldExpression><![CDATA[$F{FACTURA_FECHA_FACT}]]></textFieldExpression>
 			</textField>
@@ -141,6 +137,17 @@ WHERE  FACTURA."FECHA_FACT" >= $P{FECHA1} AND FACTURA."FECHA_FACT" <= $P{FECHA2}
 			<line>
 				<reportElement x="1" y="0" width="555" height="1" uuid="6dd2e744-f035-41d8-a45e-55dc162d7de8"/>
 			</line>
+			<staticText>
+				<reportElement x="390" y="0" width="13" height="20" uuid="53e6c60c-a9c5-413e-9767-4f676f0e90cc"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[$]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="403" y="0" width="100" height="20" uuid="57ab96e1-cf23-428f-862e-7b27f788815c"/>
+				<textFieldExpression><![CDATA[$F{VENTA_TOTAL_VENT}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
@@ -165,6 +172,13 @@ WHERE  FACTURA."FECHA_FACT" >= $P{FECHA1} AND FACTURA."FECHA_FACT" <= $P{FECHA2}
 			<line>
 				<reportElement x="418" y="67" width="136" height="1" uuid="ceb3ca02-5333-4c51-a168-543c30e104a6"/>
 			</line>
+			<staticText>
+				<reportElement x="418" y="47" width="13" height="20" uuid="15bc49fe-76f7-4700-b144-331a867aa91c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[$]]></text>
+			</staticText>
 		</band>
 	</columnFooter>
 	<pageFooter>
