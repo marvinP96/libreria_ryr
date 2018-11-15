@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Miguel%20Benavides/Documents/NetBeansProjects/libreria_ryr/src/libreria_ryr/MenuAdmin.java</file>
-            <file>file:/C:/Users/Miguel%20Benavides/Documents/NetBeansProjects/libreria_ryr/src/ingreso_datos/Ingresar_productos.java</file>
-            <file>file:/C:/Users/Miguel%20Benavides/Documents/NetBeansProjects/libreria_ryr/src/conexion_db/ConexionDB.java</file>
-            <file>file:/C:/Users/Miguel%20Benavides/Documents/NetBeansProjects/libreria_ryr/src/ingreso_datos/Datos_cliente.java</file>
+            <file>file:/C:/Users/marvin1/Desktop/libreria/libreria_ryr/src/Venta/frmVentaProd.java</file>
+            <file>file:/C:/Users/marvin1/Desktop/libreria/libreria_ryr/src/conexion_db/ConexionDB.java</file>
+            <file>file:/C:/Users/marvin1/Desktop/libreria/libreria_ryr/src/Venta/nuevaVenta.java</file>
+            <file>file:/C:/Users/marvin1/Desktop/libreria/libreria_ryr/src/facturacion/frmFacturacion.java</file>
         </group>
     </open-files>
 </project-private>

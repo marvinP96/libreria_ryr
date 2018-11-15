@@ -36,6 +36,19 @@ public class ConexionDB {
          System.out.println(e);
       }
     }
+   public Connection getConexion(){
+        Connection con=null;
+         try{         
+         Class.forName("oracle.jdbc.driver.OracleDriver");         
+         con = DriverManager.getConnection(url,login,password);         
+      }catch(SQLException e){
+         System.out.println(e);
+      }catch(ClassNotFoundException e){
+         System.out.println(e);
+      }
+        return con;
+        
+    }
   
   
     public String procedureFactura(Integer idCliente,String fecha,Integer idVenta,Integer TipoFact,Integer NumFact,Integer EstadoFact)

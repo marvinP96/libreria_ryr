@@ -6,11 +6,21 @@
 package facturacion;
 
 import conexion_db.ConexionDB;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -642,6 +652,7 @@ public class frmFacturacion extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String id=txtIdVenta.getText();
         if (this.txtNomClie.getText().isEmpty() ||this.txtIdVenta.getText().isEmpty() || this.txtNumFact.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Campos Vacios");
         }else{
@@ -664,6 +675,24 @@ public class frmFacturacion extends javax.swing.JFrame {
                 this.txtNClie.setText("");
                 this.txtNumFact.setText("");
                 this.txtIdVenta.setText("");
+                
+               Connection n= fac.getConexion();               
+                 
+       
+        try {
+            String rutaReporte=System.getProperty("user.dir")+"/reporte_ventas.jasper";
+            Map<String,Object> parameters = new HashMap<String,Object>();
+            parameters.put("idventa",new String(id));
+              parameters.put("tip",new String("CREDITO FISCAL"));
+
+            JasperReport jasperReport=(JasperReport)JRLoader.loadObjectFromFile(rutaReporte);
+            JasperPrint print = JasperFillManager.fillReport(jasperReport,parameters,n );
+            JasperViewer view = new JasperViewer(print,false);
+            view.setVisible(true);
+            
+        } catch (Exception e) {
+            System.err.println("Error al generar el reporte -> "+e.getMessage());
+        }
             
             }else if(this.rbnConsuFinal.isSelected()){
                 ConexionDB fac=new ConexionDB();
@@ -684,10 +713,28 @@ public class frmFacturacion extends javax.swing.JFrame {
                 this.txtNClie.setText("");
                 this.txtNumFact.setText("");
                 this.txtIdVenta.setText("");
+                Connection n= fac.getConexion();               
+                 
+       
+        try {
+            String rutaReporte=System.getProperty("user.dir")+"/reporte_ventas.jasper";
+            Map<String,Object> parameters = new HashMap<String,Object>();
+            parameters.put("idventa",new String(id));
+              parameters.put("tip",new String("CONSUMIDOR FINAL"));
+
+            JasperReport jasperReport=(JasperReport)JRLoader.loadObjectFromFile(rutaReporte);
+            JasperPrint print = JasperFillManager.fillReport(jasperReport,parameters,n );
+            JasperViewer view = new JasperViewer(print,false);
+            view.setVisible(true);
+            
+        } catch (Exception e) {
+            System.err.println("Error al generar el reporte -> "+e.getMessage());
+        }
             }else{
                 JOptionPane.showMessageDialog(null, "Debe Selecionar un tipo de Factura");
-            }
+            } 
         }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

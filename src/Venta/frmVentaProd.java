@@ -11,6 +11,7 @@ import entidades.EmpleadoJpaController;
 import entidades.Producto;
 import entidades.ProductoJpaController;
 import entidades.entityMain;
+import facturacion.frmFacturacion;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -634,6 +635,11 @@ public class frmVentaProd extends javax.swing.JFrame {
                                         listaDetalleV.get(i).getCantidadVenta(),total,subtotal,iva); 
           JOptionPane.showMessageDialog(null,resultado);
         }
+        frmFacturacion fact =new frmFacturacion();
+       
+        this.setVisible(false);
+        this.dispose();
+       fact.setVisible(true);
     }//GEN-LAST:event_btnFinalizarVentaActionPerformed
 
     /**

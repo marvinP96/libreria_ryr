@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="14791cec-947f-490b-ad72-4ffc035a95ea">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FECHA1" class="java.lang.String"/>
+	<parameter name="FECHA2" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     FACTURA."FECHA_FACT" AS FACTURA_FECHA_FACT,
+     FACTURA."NUMERO_FACT" AS FACTURA_NUMERO_FACT,
+     VENTA."TOTAL_VENT" AS VENTA_TOTAL_VENT,
+     EMPLEADO."NOMBRE_EMP" AS EMPLEADO_NOMBRE_EMP
+    
+FROM
+     "RYR"."VENTA" VENTA INNER JOIN "RYR"."FACTURA" FACTURA ON VENTA."ID_VENTA" = FACTURA."ID_VENTA"
+     INNER JOIN "RYR"."EMPLEADO" EMPLEADO ON VENTA."ID_EMPLEADO" = EMPLEADO."ID_EMPLEADO"
+WHERE  FACTURA."FECHA_FACT" >= $P{FECHA1} AND FACTURA."FECHA_FACT" <= $P{FECHA2}]]>
+	</queryString>
+	<field name="FACTURA_FECHA_FACT" class="java.lang.String"/>
+	<field name="FACTURA_NUMERO_FACT" class="java.math.BigDecimal"/>
+	<field name="VENTA_TOTAL_VENT" class="java.math.BigDecimal"/>
+	<field name="EMPLEADO_NOMBRE_EMP" class="java.lang.String"/>
+	<variable name="TOTAL VENDIDO_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="TOTAL VENDIDO_2" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="VENTA_TOTAL_VENT_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{VENTA_TOTAL_VENT}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="549" height="48" uuid="c22d8232-6820-4acb-9c21-7a21fcaf0de4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Agency FB" size="36"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE VENTAS POR FECHAS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="75" y="15" width="100" height="20" uuid="3d47e4df-0537-4be3-a987-7d5f1d54e91a"/>
+				<textFieldExpression><![CDATA[$P{FECHA1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="15" width="100" height="20" uuid="5f93c95e-632a-4b23-bd25-0e167801fd74"/>
+				<textFieldExpression><![CDATA[$P{FECHA2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="15" width="115" height="20" uuid="4016d9f0-7119-4a21-bd9f-7245ad897e60"/>
+				<text><![CDATA[FECHA INICIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="15" width="122" height="20" uuid="2c9f7826-f142-450b-bf16-4486026f7c23"/>
+				<text><![CDATA[FECHA FIN]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="118" y="11" width="122" height="20" uuid="2405d28d-dd3e-462b-b539-46b4d65dda43"/>
+				<text><![CDATA[FECHA DE FACTURA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="254" y="11" width="115" height="20" uuid="c790af3a-ae87-4034-9ea2-bd500a231a0d"/>
+				<text><![CDATA[NUMERO DE FACTURA ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="11" width="100" height="20" uuid="dccf3cc1-ba99-4ccf-ab55-3585d2566c51"/>
+				<text><![CDATA[EMPLEADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="11" width="111" height="20" uuid="051b089d-80a8-4114-8a06-65d2468791e5"/>
+				<text><![CDATA[TOTAL DE FACTURA]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="10" width="555" height="1" uuid="6883aeb9-c405-4f1d-be10-3e3934e611dd"/>
+			</line>
+			<line>
+				<reportElement x="555" y="12" width="1" height="19" uuid="a107f735-10fe-41ea-a366-d8383bfa689e"/>
+			</line>
+			<line>
+				<reportElement x="370" y="11" width="1" height="19" uuid="63b0e6ed-48f0-4c96-8b53-c66d6abe1dca"/>
+			</line>
+			<line>
+				<reportElement x="238" y="10" width="1" height="19" uuid="17b1c5ed-0f13-4058-a65a-7b687309facf"/>
+			</line>
+			<line>
+				<reportElement x="107" y="10" width="1" height="19" uuid="d8c0836e-99b4-428b-85ce-d81f3e61f6cf"/>
+			</line>
+			<line>
+				<reportElement x="0" y="9" width="1" height="21" uuid="86d41638-862e-4c61-a830-3a54872c9d62"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="254" y="0" width="100" height="20" uuid="482652b3-4f49-442e-a78d-ec4bbf084f8f"/>
+				<textFieldExpression><![CDATA[$F{FACTURA_NUMERO_FACT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="0" width="100" height="20" uuid="e2b69e44-e37f-43b5-af3f-1a84fc0f1a7f"/>
+				<textFieldExpression><![CDATA[$F{EMPLEADO_NOMBRE_EMP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="100" height="20" uuid="57ab96e1-cf23-428f-862e-7b27f788815c"/>
+				<textFieldExpression><![CDATA[$F{VENTA_TOTAL_VENT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="0" width="100" height="20" uuid="4f6aa0a4-67d1-4db1-ad7c-d11e014563d9"/>
+				<textFieldExpression><![CDATA[$F{FACTURA_FECHA_FACT}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" uuid="8942550d-2e92-4584-8974-baf18d614a8f"/>
+			</line>
+			<line>
+				<reportElement x="555" y="1" width="1" height="20" uuid="3913ba16-01c0-4ee8-ba48-4f1291495bfd"/>
+			</line>
+			<line>
+				<reportElement x="370" y="0" width="1" height="20" uuid="951d1b32-6da8-42e3-a957-cd53ef832a97"/>
+			</line>
+			<line>
+				<reportElement x="238" y="1" width="1" height="20" uuid="f0c79be1-b850-4fc3-9990-d717e4ca6e4b"/>
+			</line>
+			<line>
+				<reportElement x="107" y="0" width="1" height="20" uuid="7d084b86-2b38-498b-b72a-ef0551e7acdb"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="20" uuid="d1186c4f-d2ec-496a-871e-7a0cf5a09e5b"/>
+			</line>
+			<line>
+				<reportElement x="1" y="0" width="555" height="1" uuid="6dd2e744-f035-41d8-a45e-55dc162d7de8"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="68" splitType="Stretch">
+			<textField>
+				<reportElement x="433" y="48" width="121" height="20" uuid="b2b0dc55-6ef8-4a0c-8b46-bac4931fd694"/>
+				<textFieldExpression><![CDATA[$V{VENTA_TOTAL_VENT_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="433" y="13" width="122" height="35" uuid="2c2c4ddb-1878-4715-9a13-7972ab9c376a"/>
+				<text><![CDATA[TOTAL VENDIDO ENTRE FECHA INICIO Y FIN]]></text>
+			</staticText>
+			<line>
+				<reportElement x="555" y="0" width="1" height="68" uuid="fa63f88d-2115-4fbf-897a-c3e8a46d844b"/>
+			</line>
+			<line>
+				<reportElement x="418" y="0" width="1" height="68" uuid="6f050d4b-1b77-481c-9cc9-1db10bcb81af"/>
+			</line>
+			<line>
+				<reportElement x="418" y="0" width="136" height="1" uuid="f200405d-6ca7-4b5d-864b-5e0f354e9822"/>
+			</line>
+			<line>
+				<reportElement x="418" y="67" width="136" height="1" uuid="ceb3ca02-5333-4c51-a168-543c30e104a6"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
