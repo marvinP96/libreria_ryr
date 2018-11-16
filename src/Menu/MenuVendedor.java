@@ -73,13 +73,6 @@ public class MenuVendedor extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jmiGenerarFactura = new javax.swing.JMenuItem();
         jmiListarFacturas = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jmiRegistrarProd = new javax.swing.JMenuItem();
-        jmiRegistrarCat = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jmiRegistrarEmp = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
-        jmiRegistrarProv = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jmiRegistrarCli = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
@@ -146,62 +139,6 @@ public class MenuVendedor extends javax.swing.JFrame {
 
         menuBarAdmin.add(jMenu2);
 
-        jMenu3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jMenu3.setForeground(new java.awt.Color(255, 255, 255));
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/shopping-cart.png"))); // NOI18N
-        jMenu3.setText("Productos");
-        jMenu3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-
-        jmiRegistrarProd.setText("Registrar Producto");
-        jmiRegistrarProd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiRegistrarProdActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jmiRegistrarProd);
-
-        jmiRegistrarCat.setText("Registrar Categoría");
-        jmiRegistrarCat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiRegistrarCatActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jmiRegistrarCat);
-
-        menuBarAdmin.add(jMenu3);
-
-        jMenu4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jMenu4.setForeground(new java.awt.Color(255, 255, 255));
-        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/user-circle.png"))); // NOI18N
-        jMenu4.setText("Empleado");
-        jMenu4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-
-        jmiRegistrarEmp.setText("Registrar Empleado");
-        jmiRegistrarEmp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiRegistrarEmpActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jmiRegistrarEmp);
-
-        menuBarAdmin.add(jMenu4);
-
-        jMenu6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jMenu6.setForeground(new java.awt.Color(255, 255, 255));
-        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/truck.png"))); // NOI18N
-        jMenu6.setText("Proveedor");
-        jMenu6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-
-        jmiRegistrarProv.setText("Registrar Proveedor");
-        jmiRegistrarProv.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiRegistrarProvActionPerformed(evt);
-            }
-        });
-        jMenu6.add(jmiRegistrarProv);
-
-        menuBarAdmin.add(jMenu6);
-
         jMenu5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu5.setForeground(new java.awt.Color(255, 255, 255));
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/user-circle-o.png"))); // NOI18N
@@ -221,7 +158,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         jMenu8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu8.setForeground(new java.awt.Color(255, 255, 255));
         jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/folder.png"))); // NOI18N
-        jMenu8.setText("Cerrar Sesión");
+        jMenu8.setText("Reporte");
         jMenu8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         jmiGenerarRep.setText("Generar Reporte");
@@ -315,30 +252,6 @@ public class MenuVendedor extends javax.swing.JFrame {
         frm.setVisible(true);
     }//GEN-LAST:event_jmiListarFacturasActionPerformed
 
-    private void jmiRegistrarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRegistrarProdActionPerformed
-        // TODO add your handling code here:
-        Ingresar_productos frm = new  Ingresar_productos();
-        frm.setVisible(true);
-    }//GEN-LAST:event_jmiRegistrarProdActionPerformed
-
-    private void jmiRegistrarCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRegistrarCatActionPerformed
-        // TODO add your handling code here:
-        Agregar_categoria frm = new  Agregar_categoria();
-        frm.setVisible(true);
-    }//GEN-LAST:event_jmiRegistrarCatActionPerformed
-
-    private void jmiRegistrarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRegistrarEmpActionPerformed
-        // TODO add your handling code here:
-        Agregar_empleados frm = new  Agregar_empleados();
-        frm.setVisible(true);
-    }//GEN-LAST:event_jmiRegistrarEmpActionPerformed
-
-    private void jmiRegistrarProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRegistrarProvActionPerformed
-        // TODO add your handling code here:
-        Agregar_proveedor frm = new  Agregar_proveedor();
-        frm.setVisible(true);
-    }//GEN-LAST:event_jmiRegistrarProvActionPerformed
-
     private void jmiRegistrarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRegistrarCliActionPerformed
         // TODO add your handling code here:
         Datos_cliente frm = new  Datos_cliente();
@@ -391,10 +304,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
@@ -405,11 +315,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiGenerarFactura;
     private javax.swing.JMenuItem jmiGenerarRep;
     private javax.swing.JMenuItem jmiListarFacturas;
-    private javax.swing.JMenuItem jmiRegistrarCat;
     private javax.swing.JMenuItem jmiRegistrarCli;
-    private javax.swing.JMenuItem jmiRegistrarEmp;
-    private javax.swing.JMenuItem jmiRegistrarProd;
-    private javax.swing.JMenuItem jmiRegistrarProv;
     private javax.swing.JMenuItem jmiSalir;
     private javax.swing.JMenuBar menuBarAdmin;
     private javax.swing.JMenu mnCerrarSesion;
